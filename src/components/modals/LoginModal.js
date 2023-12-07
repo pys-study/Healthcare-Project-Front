@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {
   MDBBtn,
@@ -32,15 +33,15 @@ const LoginModal = () => {
             <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }}>
               <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
 
-                <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                <p className="text-white-50 mb-5">Please enter your login and password!</p>
+                <h2 className="fw-bold mb-2 text-uppercase">로그인</h2>
+                <p className="text-white-50 mb-5">이메일과 비밀번호를 입력해주세요</p>
 
-                <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Email address' id='formControlLg' type='email' size="lg" />
-                <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Password' id='formControlLg' type='password' size="lg" />
+                <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='formControlLg' type='email' size="lg" />
+                <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='formControlLg' type='password' size="lg" />
 
-                <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+                <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
                 <MDBBtn outline className='mx-2 px-5' color='white' size='lg'>
-                  Login
+                  로그인
                 </MDBBtn>
 
                 <div className='d-flex flex-row mt-3 mb-5'>
@@ -58,7 +59,7 @@ const LoginModal = () => {
                 </div>
 
                 <div>
-                  <p className="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
+                  <p className="mb-0">계정이 없으신가요? <a href="#!" class="text-white-50 fw-bold">회원가입</a></p>
 
                 </div>
               </MDBCardBody>
