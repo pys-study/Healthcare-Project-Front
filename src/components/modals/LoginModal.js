@@ -13,12 +13,16 @@ import {
 const LoginModal = () => {
   return (
     <div style={{
-      position: 'absolute',
+      position: 'fixed',
       width: '100%',
       height: '100%',
       backgroundColor: '#00000090',
       top: 0,
-      // display: 'none'
+      left: 0,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 999 // Adjust the z-index as needed
     }}>
       <MDBContainer fluid>
 
