@@ -46,11 +46,11 @@ const LoginModal = () => {
 
                 <div className='d-flex flex-row mt-3 mb-5'>
                   <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
-                    <MDBIcon fab icon='facebook-f' size="lg" />
+                    <MDBIcon fab icon='github' size="lg" />
                   </MDBBtn>
 
-                  <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
-                    <MDBIcon fab icon='twitter' size="lg" />
+                  <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'yellow' }}>
+                    <MDBIcon class='fas fa-comment' size="lg" />
                   </MDBBtn>
 
                   <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
