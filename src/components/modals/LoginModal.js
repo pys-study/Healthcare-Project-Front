@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   MDBBtn,
   MDBContainer,
@@ -12,7 +12,15 @@ import {
 }
   from 'mdb-react-ui-kit';
 const LoginModal = () => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
+    <>
+    {isOpen && (
     <div style={{
       position: 'fixed',
       width: '100%',
@@ -24,7 +32,7 @@ const LoginModal = () => {
       justifyContent: 'center',
       alignItems: 'center',
       zIndex: 999 // Adjust the z-index as needed
-    }}>
+    }} onClick={closeModal}>
       <MDBContainer fluid>
 
         <MDBRow className='d-flex justify-content-center align-items-center h-100'>
@@ -71,6 +79,8 @@ const LoginModal = () => {
       </MDBContainer>
 
     </div>
+    )}
+    </>
   )
 }
 
