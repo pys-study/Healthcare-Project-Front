@@ -18,6 +18,11 @@ const LoginModal = () => {
     setIsOpen(false);
   };
 
+  // 모달 내부 컨텐츠를 클릭해도 모달이 닫히지 않도록
+  const handleModalContentClick = (e) => {
+    e.stopPropagation(); // 이벤트 전파 방지
+  };
+  
   return (
     <>
     {isOpen && (
@@ -38,7 +43,10 @@ const LoginModal = () => {
         <MDBRow className='d-flex justify-content-center align-items-center h-100'>
           <MDBCol col='12'>
 
-            <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }}>
+            <MDBCard className='bg-dark text-white my-5 mx-auto'
+            style={{ borderRadius: '1rem', maxWidth: '400px' }}
+            onClick={handleModalContentClick} // 모달 내부 컨텐츠 클릭 이벤트 핸들러
+            >
               <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
 
                 <h2 className="fw-bold mb-2 text-uppercase">로그인</h2>
@@ -48,7 +56,7 @@ const LoginModal = () => {
                 <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='formControlLg' type='password' size="lg" />
 
                 <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
-                <MDBBtn onClick={() => { alert("로그인 성공") }} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
+                <MDBBtn onClick={() => { alert("로그인 성공"); closeModal(); }} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
                   로그인
                 </MDBBtn>
 

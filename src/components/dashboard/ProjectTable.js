@@ -10,46 +10,46 @@ const tableData = [
     avatar: user1,
     name: "Hanna Gover",
     email: "hgover@gmail.com",
-    project: "Flexy React",
+    project: "필라테스",
     status: "pending",
     weeks: "35",
-    budget: "95K",
+    budget: "200kcal",
   },
   {
     avatar: user2,
     name: "Hanna Gover",
     email: "hgover@gmail.com",
-    project: "Lading pro React",
+    project: "달리기",
     status: "done",
     weeks: "35",
-    budget: "95K",
+    budget: "400kcal",
   },
   {
     avatar: user3,
     name: "Hanna Gover",
     email: "hgover@gmail.com",
-    project: "Elite React",
+    project: "근력 운동",
     status: "holt",
     weeks: "35",
-    budget: "95K",
+    budget: "250kcal",
   },
   {
     avatar: user4,
     name: "Hanna Gover",
     email: "hgover@gmail.com",
-    project: "Flexy React",
+    project: "요가",
     status: "pending",
     weeks: "35",
-    budget: "95K",
+    budget: "300kcal",
   },
   {
     avatar: user5,
     name: "Hanna Gover",
     email: "hgover@gmail.com",
-    project: "Ample React",
+    project: "홈 트레이닝",
     status: "done",
     weeks: "35",
-    budget: "95K",
+    budget: "300kcal",
   },
 ];
 
@@ -58,20 +58,20 @@ const ProjectTables = () => {
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h5">친구 목록(미정)</CardTitle>
+          <CardTitle tag="h5">친구 목록</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Overview of the projects
+            친구들의 운동 현황을 확인해보세요!
           </CardSubtitle>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
-                <th>Team Lead</th>
-                <th>Project</th>
+                <th>이름</th>
+                <th>운동 종류</th>
 
-                <th>Status</th>
+                <th>주간 빈도</th>
 
-                <th>Budget</th>
+                <th>소모 칼로리</th>
               </tr>
             </thead>
             <tbody>
