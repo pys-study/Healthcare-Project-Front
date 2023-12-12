@@ -67,8 +67,8 @@ const Feeds = () => {
             <ListGroupItem
               key={index}
               action
-              href="/"
-              tag="a"
+              // href="/"
+              // tag="a"
               className="d-flex align-items-center p-3 border-0"
             >
               <Button
