@@ -38,21 +38,6 @@ const navigation = [
     href: "/table",
     icon: "bi bi-layout-split",
   },
-  {
-    title: "forms(삭제예정)",
-    href: "/forms",
-    icon: "bi bi-textarea-resize",
-  },
-  {
-    title: "breadcrumb(삭제예정)",
-    href: "/breadcrumbs",
-    icon: "bi bi-link",
-  },
-  {
-    title: "About(삭제예정)",
-    href: "/about",
-    icon: "bi bi-people",
-  },
 ];
 
 const Sidebar = () => {
