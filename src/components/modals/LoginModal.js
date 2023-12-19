@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   MDBBtn,
   MDBContainer,
@@ -14,6 +14,38 @@ import {
 const LoginModal = () => {
   const [isOpen, setIsOpen] = useState(true);
 
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  useEffect(() => {
+    /* 
+      로그인 되어있는지 체크 해서
+      const email = localStorage.getItem("email")
+      if(!email){
+        setIsOpen(true)
+      }
+    */
+
+  }, [])
+  const handleClickLoginBtn = () => {
+    /* 
+      fetch('/login',{
+        method: "POST",
+        conteasdas/ json/,
+        body : JSON.sty({email, password})
+      }).then(e=>e.json()).then(e=>{
+        const {isExist} = e.data
+        if(isExist){
+          localStorage.setItem("email","test@naver.com")
+    closeModal();
+        }else {
+          alert("아이디 패스워드 틀림")
+        }
+      })
+    */
+
+  }
+
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -23,6 +55,14 @@ const LoginModal = () => {
     e.stopPropagation(); // 이벤트 전파 방지
   };
 
+  const handleChangeId = (event) => {
+    const value = event.target.value
+    setEmail(value)
+  }
+  const handleChangePassword = (event) => {
+    const value = event.target.value
+    setPassword(value)
+  }
   return (
     <>
       {isOpen && (
@@ -52,11 +92,11 @@ const LoginModal = () => {
                     <h2 className="fw-bold mb-2 text-uppercase">로그인</h2>
                     <p className="text-white-50 mb-5">이메일과 비밀번호를 입력해주세요</p>
 
-                    <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='formControlLg' type='email' size="lg" />
-                    <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='formControlLg' type='password' size="lg" />
+                    <MDBInput onChange={handleChangeId} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='formControlLg' type='email' size="lg" />
+                    <MDBInput onChange={handleChangePassword} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='formControlLg' type='password' size="lg" />
 
                     <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
-                    <MDBBtn onClick={() => { alert("로그인 성공"); closeModal(); }} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
+                    <MDBBtn onClick={handleClickLoginBtn} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
                       로그인
                     </MDBBtn>
 
