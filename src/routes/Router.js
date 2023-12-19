@@ -23,6 +23,12 @@ const ThemeRoutes = [
   {
     path: "/",
     element: <FullLayout />,
+    loader: () => {
+      console.log("test");
+      debugger
+      // let formData = await request.formData();
+      // return fakeUpdateSong(params.songId, formData);
+    },
     children: [
       { path: "/", element: <Navigate to="/starter" /> },
       { path: "/starter", exact: true, element: <Starter /> },
