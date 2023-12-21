@@ -28,6 +28,8 @@ const LoginModal = () => {
 
   }, [])
   const handleClickLoginBtn = () => {
+    alert("로그인 버튼 클릭");
+    setIsOpen(false);
     /* 
       fetch('/login',{
         method: "POST",
@@ -46,8 +48,11 @@ const LoginModal = () => {
 
   }
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const closeModal = (e) => {
+    // 클릭한 이벤트의 타겟이 오버레이(배경)인지 확인합니다.
+    if (e.target === e.currentTarget) {
+      setIsOpen(false);
+    }
   };
 
   // 모달 내부 컨텐츠를 클릭해도 모달이 닫히지 않도록
@@ -76,7 +81,7 @@ const LoginModal = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          zIndex: 999 // Adjust the z-index as needed
+          zIndex: 999 // 필요에 따라 z-index를 조절합니다.
         }} onClick={closeModal}>
           <MDBContainer fluid>
 
