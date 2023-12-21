@@ -57,7 +57,10 @@ const LoginModal = () => {
 
   // 모달 내부 컨텐츠를 클릭해도 모달이 닫히지 않도록
   const handleModalContentClick = (e) => {
-    e.stopPropagation(); // 이벤트 전파 방지
+    // 모달 내부의 특정 요소를 클릭할 때만 모달 종료
+    if (!e.target.classList.contains('custom-close-button')) {
+      e.stopPropagation(); // 이벤트 전파 방지
+    }
   };
 
   const handleChangeId = (event) => {
@@ -83,7 +86,7 @@ const LoginModal = () => {
           alignItems: 'center',
           zIndex: 999 // 필요에 따라 z-index를 조절합니다.
         }} onClick={closeModal}>
-          <MDBContainer fluid>
+          <MDBContainer fluid style={{ height: '100%' }}>
 
             <MDBRow className='d-flex justify-content-center align-items-center h-100'>
               <MDBCol col='12'>
