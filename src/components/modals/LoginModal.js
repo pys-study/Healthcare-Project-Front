@@ -11,8 +11,16 @@ import {
   MDBIcon
 }
   from 'mdb-react-ui-kit';
+import SignupModal from './SignupModal';
+
+
 const LoginModal = () => {
   const [isOpen, setIsOpen] = useState(true);
+
+  const [isSignup, setIsSignup] = useState(false)
+  // isSignup이 false 회원가입을 안해도 된다.  => setIsSignup(false)
+  // isSignup이 true 회원가입을 해라 => setIsSignup(true)
+
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -123,7 +131,11 @@ const LoginModal = () => {
                     </div>
 
                     <div>
-                      <p className="mb-0">계정이 없으신가요? <a href="#!" class="text-white-50 fw-bold">회원가입</a></p>
+                      <p className="mb-0">계정이 없으신가요? <MDBBtn onClick={() => {
+                        setIsSignup(true)
+                        // 회원가입을 해야 하는 상태 => 회원가입 해라
+                        setIsOpen(false)
+                      }} style={{ width: '80px', height: '30px' }} color='none' className='m-3' size='sm'>회원가입</MDBBtn></p>
 
                     </div>
                   </MDBCardBody>
@@ -136,6 +148,9 @@ const LoginModal = () => {
 
         </div>
       )}
+      {isSignup && <SignupModal />}
+      {/* isSignup이 true 이므로 signModal 실행 */}
+      {/* isSignup이 true 일때 로그인 된 상태 => 로그인 안함 */}
     </>
   )
 }
