@@ -9,11 +9,6 @@ const navigation = [
     icon: "bi bi-speedometer2",
   },
   {
-    title: "알림(alerts)",
-    href: "/alerts",
-    icon: "bi bi-bell",
-  },
-  {
     title: "내정보(Badges)",
     href: "/badges",
     icon: "bi bi-patch-check",
@@ -24,19 +19,9 @@ const navigation = [
     icon: "bi bi-hdd-stack",
   },
   {
-    title: "영양제(Grid)",
-    href: "/grid",
-    icon: "bi bi-columns",
-  },
-  {
     title: "운동관리(Cards)",
     href: "/cards",
     icon: "bi bi-card-text",
-  },
-  {
-    title: "커뮤니티(Tables)",
-    href: "/table",
-    icon: "bi bi-layout-split",
   },
 ];
 
