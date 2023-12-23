@@ -1,74 +1,81 @@
-body {
-  font-family: Arial, sans-serif;
-}
+/* diet.css */
 
-.profile-container {
-  width: 600px;
-  /* 원래 크기의 2배 */
-  margin: 0 auto;
-  padding: 40px;
-  /* 패딩도 2배로 조정 */
-  border: 2px solid #ddd;
-  /* 테두리도 약간 굵게 */
-  border-radius: 10px;
-}
-
-h2 {
-  text-align: center;
-  font-size: 32px;
-  /* 제목의 폰트 크기를 2배로 조정 */
-}
-
-.form-group {
-  margin-bottom: 30px;
-  /* 각 폼 그룹의 마진도 2배로 조정 */
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-  /* 라벨과 입력 필드 사이의 간격 조정 */
-  font-size: 18px;
-  /* 라벨 폰트 크기 조정 */
-}
-
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="date"],
-select {
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 16px;
-  /* 입력 필드의 패딩 조정 */
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  /* 입력 필드의 폰트 크기 조정 */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
-
-
-.btn {
-  display: block;
-  width: 100%;
+.modal-content {
+  background-color: white;
   padding: 20px;
-  /* 버튼의 패딩 조정 */
+  border-radius: 5px;
+  width: 50%;
+  max-width: 600px;
+  /* 최대 너비 설정 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.food-list {
+  list-style: none;
+  padding: 0;
   margin-top: 20px;
+  max-height: 300px;
+  /* 스크롤이 필요한 경우를 위한 최대 높이 */
+  overflow-y: auto;
+  /* 내용이 넘칠 경우 스크롤바 표시 */
+}
+
+.food-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.food-list li:hover {
+  background-color: #f7f7f7;
+}
+
+.modal-actions {
+  text-align: right;
+  padding-top: 10px;
+}
+
+.modal-actions button {
+  padding: 5px 15px;
+  margin-left: 10px;
   border: none;
-  border-radius: 8px;
-  background-color: #4CAF50;
+  background-color: #007bff;
   color: white;
   cursor: pointer;
-  font-size: 18px;
-  /* 버튼의 폰트 크기 조정 */
+  border-radius: 5px;
+  transition: background-color 0.2s;
 }
 
-.btn.edit {
-  background-color: #f0ad4e;
+.modal-actions button:hover {
+  background-color: #0056b3;
 }
 
-.btn:hover {
-  opacity: 0.8;
+/* 취소 버튼만 다른 색상을 주기 위한 추가 스타일 */
+.modal-actions button:nth-child(1) {
+  background-color: #6c757d;
+}
+
+.modal-actions button:nth-child(1):hover {
+  background-color: #5a6268;
 }

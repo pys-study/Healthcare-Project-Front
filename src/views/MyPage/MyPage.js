@@ -1,7 +1,6 @@
 import './MyPage.css';
 
-
-const myPage = () => {
+const MyPage = () => {
   return (
     <div className="profile-container">
       <h2>내 정보</h2>
@@ -42,4 +41,4 @@ const myPage = () => {
   );
 };
 
-export default myPage;
+export default MyPage;

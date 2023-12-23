@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './DietModal.css';
 
-const FoodModal = ({ isOpen, closeModal, addFoodToMeal }) => {
+const DietModal = ({ isModalOpen, closeModal, addFoodToMeal }) => {
+
   const [foodItems, setFoodItems] = useState([]);
+
 
   useEffect(() => {
     // 공공 데이터 API로부터 식품 정보를 가져오는 함수를 여기에 구현합니다.
@@ -20,14 +22,13 @@ const FoodModal = ({ isOpen, closeModal, addFoodToMeal }) => {
       // const data = await response.json();
       // setFoodItems(data);
     };
-
-    if (isOpen) {
+    if (isModalOpen) {
       fetchFoodItems();
     }
-  }, [isOpen]);
+  }, [isModalOpen]);
 
   return (
-    isOpen && (
+    isModalOpen && (
       <div className="modal">
         <div className="modal-content">
           <span className="close" onClick={closeModal}>&times;</span>
@@ -47,4 +48,4 @@ const FoodModal = ({ isOpen, closeModal, addFoodToMeal }) => {
   );
 };
 
-export default FoodModal;
+export default DietModal;

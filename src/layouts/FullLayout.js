@@ -24,7 +24,7 @@ const FullLayout = () => {
         </div>
       </div>
       {/* <div className="LoginModal"></div> */}
-      <LoginModal />
+      {/* <LoginModal /> */}
     </main>
   );
 };

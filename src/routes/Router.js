@@ -8,7 +8,6 @@ import Exercise from "../views/Exercise/Exercise.js";
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
-
 /*****Routes******/
 
 const ThemeRoutes = [
