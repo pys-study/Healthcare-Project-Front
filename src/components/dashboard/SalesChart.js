@@ -6,7 +6,7 @@ const SalesChart = () => {
     series: [
       {
         name: "수영",
-        data: [0, 31, 40, 28, 51, 42, 150, 200],
+        data: [50, 31, 40, 28, 51, 42, 150, 200],
       },
       {
         name: "달리기",
@@ -45,7 +45,7 @@ const SalesChart = () => {
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">일일 소모 칼로리 현황</CardTitle>
+        <CardTitle tag="h5">일일 소모 칼로리 현황 ( SalesChart )</CardTitle>
         <CardSubtitle className="text-muted" tag="h6">
           연간 일일 소모 칼로리 보고
         </CardSubtitle>

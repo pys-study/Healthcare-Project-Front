@@ -58,9 +58,9 @@ const Feeds = () => {
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">의약품 및 보충제 정보</CardTitle>
+        <CardTitle tag="h5">오늘의 영양제 (Feeds)</CardTitle>
         <CardSubtitle className="mb-2 text-muted" tag="h6">
-          현재 복용중인 의약품, 보충제를 포함한 Healthcare의 추천 영양제
+          현재 복용중인 의약품, 보충제
         </CardSubtitle>
         <ListGroup flush className="mt-4">
           {FeedData.map((feed, index) => (

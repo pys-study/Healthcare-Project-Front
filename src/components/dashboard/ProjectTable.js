@@ -58,7 +58,7 @@ const ProjectTables = () => {
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h5">친구 목록</CardTitle>
+          <CardTitle tag="h5">(ProjectTable)</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             친구들의 운동 현황을 확인해보세요!
           </CardSubtitle>

@@ -9,7 +9,7 @@ const navigation = [
     icon: "bi bi-speedometer2",
   },
   {
-    title: "내정보",
+    title: "My Page",
     href: "/MyPage",
     icon: "bi bi-patch-check",
   },
@@ -19,7 +19,7 @@ const navigation = [
     icon: "bi bi-hdd-stack",
   },
   {
-    title: "운동관리",
+    title: "운동 관리",
     href: "/Exercise",
     icon: "bi bi-card-text",
   },

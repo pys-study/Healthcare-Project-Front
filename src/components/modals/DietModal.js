@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../views/ui/css/diet.css';
+import './DietModal.css';
 
 const FoodModal = ({ isOpen, closeModal, addFoodToMeal }) => {
   const [foodItems, setFoodItems] = useState([]);

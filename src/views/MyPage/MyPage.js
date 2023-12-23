@@ -1,4 +1,4 @@
-import './myPage.css';
+import './MyPage.css';
 
 
 const myPage = () => {
