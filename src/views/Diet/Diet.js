@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './css/diet.css';
+import './diet.css';
 import DietModal from '../../components/modals/DietModal';
 
-const Buttons = () => {
+const Diet = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState('');
   const [meals, setMeals] = useState({
@@ -70,4 +70,4 @@ const Buttons = () => {
   );
 };
 
-export default Buttons;
+export default Diet;

@@ -1,7 +1,7 @@
-import './css/myPage.css';
+import './myPage.css';
 
 
-const Badges = () => {
+const myPage = () => {
   return (
     <div className="profile-container">
       <h2>내 정보</h2>
@@ -42,4 +42,4 @@ const Badges = () => {
   );
 };
 
-export default Badges;
+export default myPage;

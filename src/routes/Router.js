@@ -1,5 +1,9 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
+import Dashboard from "../views/Dashboard";
+import Diet from "../views/Diet/Diet.js";
+import MyPage from "../views/MyPage/index.js";
+
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
