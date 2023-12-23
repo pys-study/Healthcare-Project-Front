@@ -4,23 +4,23 @@ import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
   {
-    title: "대시보드(starter)",
-    href: "/starter",
+    title: "대시보드",
+    href: "/Dashboard",
     icon: "bi bi-speedometer2",
   },
   {
-    title: "내정보(Badges)",
-    href: "/badges",
+    title: "내정보",
+    href: "/MyPage",
     icon: "bi bi-patch-check",
   },
   {
-    title: "식단 관리(Button)",
-    href: "/buttons",
+    title: "식단 관리",
+    href: "/Diet",
     icon: "bi bi-hdd-stack",
   },
   {
-    title: "운동관리(Cards)",
-    href: "/cards",
+    title: "운동관리",
+    href: "/Exercise",
     icon: "bi bi-card-text",
   },
 ];
