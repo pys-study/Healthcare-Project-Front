@@ -41,7 +41,7 @@ const Diet = () => {
   // 식사 목록을 렌더링하는 함수
   const renderMealList = (mealType) => {
     return meals[mealType].map((foodItem, index) => (
-      <li key={index}>{foodItem}</li>
+      <li key={index}>{foodItem.name}</li>
     ));
   };
 

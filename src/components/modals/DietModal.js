@@ -14,6 +14,7 @@ const DietModal = ({ isModalOpen, closeModal, addFoodToMeal }) => {
       const dummyFoodItems = [
         { id: 1, name: '사과' },
         { id: 2, name: '닭가슴살' },
+        { id: 3, name: '우둔살' },
         // ...더 많은 식품 데이터
       ];
       setFoodItems(dummyFoodItems);
