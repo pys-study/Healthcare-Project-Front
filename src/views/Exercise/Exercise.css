@@ -1,0 +1,91 @@
+/* Exercise.css */
+
+/* 기본 페이지 레이아웃 스타일 */
+.exercise-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* '운동 선택하기' 버튼 스타일 */
+.select-exercise-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* 날짜 표시 영역 스타일 */
+#datePicker {
+  margin-bottom: 20px;
+}
+
+/* 날짜 입력 필드 스타일 */
+#currentDate {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+/* 날짜와 요일 표시 스타일 */
+.date-display {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* 모달을 포함한 모든 버튼에 공통적으로 적용될 스타일 */
+button {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* 추가한 운동을 표시하는 리스트 스타일 */
+.selected-exercises-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+}
+
+.selected-exercises-list li {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-exercises-list img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+/* 선택한 운동의 이름 스타일 */
+.selected-exercise-name {
+  margin-left: 10px;
+}
+
+/* 선택한 운동을 제거하는 버튼 스타일 */
+.remove-exercise-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.remove-exercise-btn:hover {
+  background-color: #e2e6ea;
+}
