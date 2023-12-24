@@ -41,8 +41,22 @@ const Diet = () => {
   // 식사 목록을 렌더링하는 함수
   const renderMealList = (mealType) => {
     return meals[mealType].map((foodItem, index) => (
-      <li key={index}>{foodItem.name}</li>
+      <li className='food-item' key={index}>{foodItem.name}
+        <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, index)}>x</button>
+      </li>
     ));
+  };
+
+  // 선택된 식사 시간에서 특정 음식을 제거하는 함수
+  const removeFoodFromMeal = (mealType, index) => {
+    // 해당 식사 시간의 배열에서 index에 해당하는 아이템을 제거
+    setMeals((prevMeals) => {
+      const filteredMeals = prevMeals[mealType].filter((_, i) => i !== index);
+      return {
+        ...prevMeals,
+        [mealType]: filteredMeals
+      };
+    });
   };
 
   return (
