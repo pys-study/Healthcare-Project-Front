@@ -16,7 +16,7 @@ phases:
       - npm run build
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t hwp .
+      - docker build -t hwp:front .
       - docker tag hwp:front 289850138235.dkr.ecr.ap-northeast-2.amazonaws.com/hwp:front
   post_build:
     commands:
