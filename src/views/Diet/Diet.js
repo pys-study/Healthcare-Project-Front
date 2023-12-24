@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Diet.css';
+import './diet.css';
 import DietModal from '../../components/modals/DietModal';
 
 const Diet = () => {
