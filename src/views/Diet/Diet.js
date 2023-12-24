@@ -8,6 +8,20 @@ const Diet = () => {
   // isModalOpen = true => 모달 열어야함
   // isModalOpen = false => 모달 닫아야함
 
+  const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+  // 오늘 날짜를 yyyy-mm-dd 형식으로 가져오기
+  const today = new Date().toISOString().split('T')[0];
+
+  // 오늘 날짜를 상태로 관리
+  const [currentDate, setCurrentDate] = useState(today);
+
+  // 날짜와 요일을 문자열로 결합하는 함수
+  const formatDateWithDay = (date) => {
+    const dayOfWeek = weekdays[new Date(date).getDay()];
+    return `${date} (${dayOfWeek})`;
+  };
+
   // 현재 선택된 식사 시간을 저장하는 상태 ('breakfast', 'lunch', 'dinner')
   const [selectedMeal, setSelectedMeal] = useState('');
 
@@ -61,9 +75,16 @@ const Diet = () => {
 
   return (
     <div>
+      {/* 날짜 선택 입력 필드 */}
       <div id="datePicker">
         {/* 날짜 선택 입력 필드 */}
-        <input type="date" id="currentDate" />
+        <input
+          type="date"
+          id="currentDate"
+          value={currentDate} // 입력 필드의 값으로 상태 사용
+          onChange={(e) => setCurrentDate(e.target.value)} // 날짜 변경 핸들러
+        />
+        <span className='date-display'>{formatDateWithDay(currentDate)}</span>
       </div>
 
       <div id="meals">
@@ -79,6 +100,7 @@ const Diet = () => {
         {/* 점심 식사 섹션 */}
         <section id="lunch">
           <h2>점심 식사</h2>
+
           <ul id="lunchList">
             {renderMealList('lunch')}
           </ul>
@@ -87,7 +109,7 @@ const Diet = () => {
 
         {/* 저녁 식사 섹션 */}
         <section id="dinner">
-          <h2>저녁식사</h2>
+          <h2 >저녁식사</h2>
           <ul id="dinnerList">
             {renderMealList('dinner')}
           </ul>

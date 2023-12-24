@@ -9,9 +9,26 @@ body {
 /* datePicker - 날짜를 선택할 수 있는 입력 필드의 정렬과 여백을 설정합니다. */
 #datePicker {
   text-align: center;
-  /* 텍스트를 중앙 정렬합니다. */
+  /* 중앙 정렬 */
   margin-bottom: 20px;
-  /* 요소 아래쪽의 여백을 20px로 설정합니다. */
+  /* 아래쪽 여백 */
+  /* 아래쪽 여백 */
+}
+
+/* 날짜와 요일을 표시하는 span 태그의 스타일 조정 */
+.date-display {
+  display: block;
+  /* 블록 레벨 요소로 만들기 */
+  background-color: #d4edda;
+  color: #155724;
+  padding: 8px 15px;
+  /* 패딩 증가 */
+  border-radius: 5px;
+  margin: 10px auto;
+  /* 위아래 여백 10px, 좌우 자동 */
+  font-weight: bold;
+  font-size: 1.1em;
+  /* 글자 크기 증가 */
 }
 
 /* meals section - 식사(아침, 점심, 저녁)를 표시하는 각 섹션의 스타일을 설정합니다. */
@@ -32,11 +49,12 @@ body {
   /* 제목 내부의 여백을 5px로 설정합니다. */
   margin-top: 0;
   /* 제목 위쪽의 여백을 없앱니다(0으로 설정). */
+  font-family: 'Roboto Mono', monospace;
 }
 
 /* addFoodBtn - 음식을 추가하는 버튼에 대한 스타일을 설정합니다. */
 .addFoodBtn {
-  background-color: yellow;
+  background-color: rgba(218, 218, 218, 0.685);
   /* 버튼의 배경색을 노란색으로 설정합니다. */
   border: none;
   /* 테두리를 없앱니다. */
