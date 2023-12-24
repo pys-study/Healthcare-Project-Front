@@ -11,6 +11,9 @@ phases:
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
+      - echo Build react app
+      - npm install
+      - npm run build
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t hwp .
@@ -24,3 +27,6 @@ artifacts:
   files:
     - appspec.yml
     - scripts/**
+cache:
+  paths:
+    - node_modules/
