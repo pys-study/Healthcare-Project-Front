@@ -1,5 +1,5 @@
 # buildspec.yml
-version: 0.0
+version: 0.2
 env:
   variables:
     AWS_DEFAULT_REGION: ap-northeast-2
