@@ -1,0 +1,29 @@
+# buildspec.yml
+version: 0.2
+env:
+  variables:
+    AWS_DEFAULT_REGION: ap-northeast-2
+    AWS_ACCOUNT_ID: 289850138235
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+  build:
+    commands:
+      - echo Building the Spring Project...
+      - chmod +x npm
+      - npm run build
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t hwp .
+      - docker tag hwp:front 289850138235.dkr.ecr.ap-northeast-2.amazonaws.com/hwp:front
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 289850138235.dkr.ecr.ap-northeast-2.amazonaws.com/hwp:front
+artifacts:
+  files:
+    - appspec.yml
+    - scripts/**
