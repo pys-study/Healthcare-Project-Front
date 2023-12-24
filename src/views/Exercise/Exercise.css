@@ -78,7 +78,7 @@ button {
 }
 
 /* 선택한 운동을 제거하는 버튼 스타일 */
-.remove-exercise-btn {
+.removeExerciseBtn {
   background: none;
   border: none;
   color: #dc3545;
@@ -86,6 +86,72 @@ button {
   border-radius: 5px;
 }
 
-.remove-exercise-btn:hover {
+.removeExerciseBtn:hover {
   background-color: #e2e6ea;
+}
+
+#exerciseList {
+  list-style-type: none;
+  /* 기본 목록 스타일 제거 */
+  padding: 0;
+  /* 기본 패딩 제거 */
+  margin: 0;
+  /* 기본 마진 제거 */
+}
+
+#exerciseList li {
+  background-color: #f2f2f2;
+  /* 배경색 설정 */
+  border: 1px solid #ddd;
+  /* 테두리 설정 */
+  margin-bottom: 8px;
+  /* 아래쪽 마진 설정 */
+  padding: 12px 20px;
+  /* 패딩 설정 */
+  border-radius: 4px;
+  /* 테두리 둥글게 설정 */
+  display: flex;
+  /* Flexbox 레이아웃 사용 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
+  justify-content: center;
+  /* 내용물 좌우 정렬 */
+  font-size: 16px;
+  /* 글꼴 크기 설정 */
+  font-weight: bold;
+  /* 글꼴 굵게 */
+}
+
+#exerciseList li:hover {
+  background-color: #e6e6e6;
+  /* 호버 시 배경색 변경 */
+}
+
+#exerciseList li::before {
+  content: '🏋️';
+  /* 운동 이모지 추가 */
+  margin-right: 10px;
+  /* 오른쪽 마진 추가 */
+}
+
+.select-exercise-btn {
+  background-color: #4CAF50;
+  /* 버튼 배경색 */
+  color: white;
+  /* 버튼 텍스트 색상 */
+  padding: 10px 15px;
+  /* 버튼 패딩 */
+  border: none;
+  /* 테두리 제거 */
+  border-radius: 4px;
+  /* 둥근 테두리 */
+  cursor: pointer;
+  /* 커서 스타일 */
+  margin-top: 10px;
+  /* 위쪽 마진 */
+}
+
+.select-exercise-btn:hover {
+  background-color: #45a049;
+  /* 호버 시 배경색 변경 */
 }

@@ -10,6 +10,9 @@ const Exercise = () => {
   // isModalOpen = true => 모달 열어야함
   // isModalOpen = false => 모달 닫아야함
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
   // 오늘 날짜를 yyyy-mm-dd 형식으로 가져오기
@@ -24,9 +27,17 @@ const Exercise = () => {
     return `${date} (${dayOfWeek})`;
   };
 
+  // 운동 목록을 상태로 관리하고, addExercise 함수를 통해 이를 업데이트 함
+  const [exerciseList, setExerciseList] = useState([]);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const addExercise = (selectedExercises) => {
+    // 새로운 운동 목록을 현재 목록에 추가
+    setExerciseList([...exerciseList, ...selectedExercises]);
+  };
+
+  const removeExercise = (id) => {
+    setExerciseList(exerciseList.filter(exercise => exercise.id !== id));
+  };
 
   return (
     <div>
@@ -44,9 +55,17 @@ const Exercise = () => {
 
         <div id='exercis'>
           <h2>오늘의 운동</h2>
-          <ul id='exerciseList'></ul>
+          <ul id='exerciseList'>
+            {exerciseList.map(exercise => (
+              <li key={exercise.id}>
+                {exercise.name}
+                <button onClick={() => removeExercise(exercise.id)} className="removeExerciseBtn">X</button>
+              </li>
+            ))}
+          </ul>
         </div>
-        {isModalOpen && <ExerciseModal onClose={closeModal} />}
+        {isModalOpen && <ExerciseModal onClose={closeModal} addExercise={addExercise} />}
+        {/* addExercise 함수를 prop으로 전달 */}
       </div>
     </div>
   )
