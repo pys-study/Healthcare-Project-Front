@@ -49,8 +49,7 @@
   /* Optional: Add a border for better visibility */
   margin-bottom: 20px;
   /* Optional: Add some margin at the bottom */
-
-
+  margin-top: 20px;
 }
 
 .exercise-item {

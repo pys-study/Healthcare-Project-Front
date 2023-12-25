@@ -51,11 +51,17 @@ const Exercise = () => {
           onChange={(e) => setCurrentDate(e.target.value)} // 날짜 변경 핸들러
         />
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
-
+        <h2>오늘의 운동</h2>
+        <br></br>
         <button className="select-exercise-btn" onClick={openModal}>운동 선택하기</button>
-
         <div id='exercis'>
-          <h2>오늘의 운동</h2>
+          <div className="exercise-schema">
+            <span className="exercise-tag">운동</span>
+            <span className="exercise-tag">중량</span>
+            <span className="exercise-tag">세트 수</span>
+            <span className="exercise-tag">횟수</span>
+            <span className="exercise-tag">총 무게</span>
+          </div>
           <ul id='exerciseList'>
             {exerciseList.map(exercise => (
               <li key={exercise.id}>

@@ -62,7 +62,11 @@ const ExerciseModal = ({ onClose, addExercise }) => {
           <div className="exercise-list">
             {/* 운동 아이템 반복 */}
             {exerciseData.map((exercise) => (
-              <div key={exercise.id} className="exercise-item">
+              <div
+                key={exercise.id}
+                className="exercise-item"
+                onClick={() => toggleExercise(exercise.id)}
+              >
                 <input
                   type="checkbox"
                   id={`exercise-${exercise.id}`}
