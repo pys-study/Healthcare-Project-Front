@@ -35,9 +35,29 @@ const Exercise = () => {
     setExerciseList([...exerciseList, ...selectedExercises]);
   };
 
+  const [exerciseDetails, setExerciseDetails] = useState({});
+
+  const handleDetailChange = (id, field, value) => {
+    setExerciseDetails({
+      ...exerciseDetails,
+      [id]: {
+        ...exerciseDetails[id],
+        [field]: value,
+      },
+    });
+  };
+
   const removeExercise = (id) => {
-    debugger
     setExerciseList(exerciseList.filter(exercise => exercise.id !== id));
+  };
+
+  // 중량, 세트 수, 횟수를 입력받아 총 무게를 계산하는 함수
+  const calculateTotalWeight = (exercise) => {
+    const weight = parseFloat(exerciseDetails[exercise.id]?.weight || 0);
+    const sets = parseInt(exerciseDetails[exercise.id]?.sets || 0);
+    const reps = parseInt(exerciseDetails[exercise.id]?.reps || 0);
+    const totalWeight = weight * sets * reps;
+    return isNaN(totalWeight) ? 0 : totalWeight;
   };
 
   return (
@@ -53,27 +73,54 @@ const Exercise = () => {
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
         <h2>오늘의 운동</h2>
         <br></br>
-        <button className="select-exercise-btn" onClick={openModal}>운동 선택하기</button>
         <div id='exercis'>
           <div className="exercise-schema">
-            <span className="exercise-tag">운동</span>
-            <span className="exercise-tag">중량</span>
-            <span className="exercise-tag">세트 수</span>
-            <span className="exercise-tag">횟수</span>
-            <span className="exercise-tag">총 무게</span>
+            <span>운동</span>
+            <span>중량</span>
+            <span>세트 수</span>
+            <span>횟수</span>
+            <span>총 무게</span>
           </div>
-          <ul id='exerciseList'>
-            {exerciseList.map(exercise => (
-              <li key={exercise.id}>
-                {exercise.name}
-                <button onClick={() => removeExercise(exercise.id)} className="removeExerciseBtn">X</button>
-              </li>
-            ))}
-          </ul>
+          <div id='exerciseList-container'>
+            <ul id='exerciseList'>
+              {exerciseList.map(exercise => (
+                <li key={exercise.id}>
+                  <div className="exercise-inputs">
+                    <div className='exerciseName'>
+                      {exercise.name}
+                    </div>
+                    <div className="input-group">
+                      <input type="number" placeholder="중량" aria-label="중량" />
+                      <span className="input-unit">kg</span>
+                    </div>
+
+                    <div className="input-group">
+                      <input type="number" placeholder="세트 수" aria-label="세트 수" />
+                      <span className="input-unit">세트</span>
+                    </div>
+
+                    <div className="input-group">
+                      <input type="number" placeholder="횟수" aria-label="횟수" />
+                      <span className="input-unit">회</span>
+                    </div>
+                    <div className='totalWeight'>
+                      총 무게: {calculateTotalWeight(exercise)} kg
+                    </div>
+                  </div>
+                  <button onClick={() => removeExercise(exercise.id)} className="removeExerciseBtn">X</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="button-container">
+            <button className="select-button" onClick={openModal}>운동 선택하기</button>
+            <button className="save-button">저장하기</button>
+            <button className="edit-button">수정하기</button>
+          </div>
+          {isModalOpen && <ExerciseModal
+            onClose={closeModal} addExercise={addExercise} />}
+          {/* addExercise 함수를 prop으로 전달 */}
         </div>
-        {isModalOpen && <ExerciseModal
-          onClose={closeModal} addExercise={addExercise} />}
-        {/* addExercise 함수를 prop으로 전달 */}
       </div>
     </div>
   )
