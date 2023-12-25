@@ -15,6 +15,10 @@ const ExerciseModal = ({ onClose, addExercise }) => {
     { id: 4, name: '데드리프트' },
     { id: 5, name: '오버 헤드 프레스' },
     { id: 6, name: '사이드 레터럴 레이즈' },
+    { id: 7, name: '힙 쓰러스트' },
+    { id: 8, name: '카프레이즈' },
+    { id: 9, name: '랫풀다운' },
+    { id: 10, name: '암풀다운' },
     // ... 추가 운동 데이터
   ];
 
@@ -49,43 +53,46 @@ const ExerciseModal = ({ onClose, addExercise }) => {
   };
 
   return (
-    <div className="exercise-modal">
-      {/* 모달 창 닫기 버튼 */}
-      <button onClick={onClose} className="close-modal-btn">✖</button>
-
-      {/* 운동 목록 */}
-      <div className="exercise-list">
-        {/* 운동 아이템 반복 */}
-        {exerciseData.map((exercise) => (
-          <div key={exercise.id} className="exercise-item">
-            <input
-              type="checkbox"
-              id={`exercise-${exercise.id}`}
-              checked={selectedExercises.includes(exercise.id)}
-              onChange={() => toggleExercise(exercise.id)}
-            />
-            <label htmlFor={`exercise-${exercise.id}`}>
-              {exercise.name}
-            </label>
+    <div className='exerciseModal'>
+      <div className="exercise-modal">
+        {/* 모달 창 닫기 버튼 */}
+        <button onClick={onClose} className="close-modal-btn">✖</button>
+        {/* 운동 목록 */}
+        <div className="exercise-list-container">
+          <div className="exercise-list">
+            {/* 운동 아이템 반복 */}
+            {exerciseData.map((exercise) => (
+              <div key={exercise.id} className="exercise-item">
+                <input
+                  type="checkbox"
+                  id={`exercise-${exercise.id}`}
+                  checked={selectedExercises.includes(exercise.id)}
+                  onChange={() => toggleExercise(exercise.id)}
+                />
+                <label htmlFor={`exercise-${exercise.id}`}>
+                  {exercise.name}
+                </label>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        {/* 선택된 운동 목록 */}
+        <div className="selected-exercises">
+          {selectedExercises.map((id) => {
+            // 운동 아이디를 기반으로 운동 객체 찾기
+            const exercise = exerciseData.find(e => e.id === id);
+            return (
+              <span key={id} className="selected-exercise">
+                {exercise.name} {/* 올바르게 운동 이름 표시 */}
+                <button className="remove-exercise-btn" onClick={() => removeExercise(id)}>✖</button>
+              </span>
+            );
+          })}
+        </div>
+        <button className="add-exercises" onClick={handleAddExercises}>
+          {selectedCount}개의 운동 추가하기
+        </button>
       </div>
-      {/* 선택된 운동 목록 */}
-      <div className="selected-exercises">
-        {selectedExercises.map((id) => {
-          // 운동 아이디를 기반으로 운동 객체 찾기
-          const exercise = exerciseData.find(e => e.id === id);
-          return (
-            <span key={id} className="selected-exercise">
-              {exercise.name} {/* 올바르게 운동 이름 표시 */}
-              <button onClick={() => removeExercise(id)} className="remove-exercise-btn">✖</button>
-            </span>
-          );
-        })}
-      </div>
-      <button className="add-exercises" onClick={handleAddExercises}>
-        {selectedCount}개의 운동 추가하기
-      </button>
     </div>
   );
 };

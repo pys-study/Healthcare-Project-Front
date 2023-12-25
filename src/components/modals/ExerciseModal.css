@@ -1,3 +1,24 @@
+/* 전체 화면 모달 배경 스타일 */
+.exerciseModal {
+  display: flex;
+  align-items: center;
+  /* 모달을 수직 방향으로 가운데 정렬 */
+  justify-content: center;
+  /* 모달을 수평 방향으로 가운데 정렬 */
+  position: fixed;
+  /* 스크롤 시에도 같은 위치에 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* 전체 너비 */
+  height: 100%;
+  /* 전체 높이 */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* 반투명 배경색 설정 */
+  z-index: 10;
+  /* 다른 콘텐츠 위에 표시되도록 z-index 설정 */
+}
+
 .exercise-modal {
   position: relative;
   /* 상대 위치 */
@@ -9,12 +30,27 @@
   /* 약간 둥근 모서리 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* 미묘한 그림자 */
-  max-width: 1700px;
+  max-width: 1000px;
   /* 원래의 2배 크기 */
   margin: auto;
   /* 중앙 정렬 */
   width: 80%;
   /* 전체 너비의 80% */
+
+}
+
+
+.exercise-list-container {
+  max-height: 400px;
+  /* Set a maximum height */
+  overflow-y: scroll;
+  /* Enable vertical scrolling */
+  border: 1px solid #ddd;
+  /* Optional: Add a border for better visibility */
+  margin-bottom: 20px;
+  /* Optional: Add some margin at the bottom */
+
+
 }
 
 .exercise-item {

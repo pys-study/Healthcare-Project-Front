@@ -36,6 +36,7 @@ const Exercise = () => {
   };
 
   const removeExercise = (id) => {
+    debugger
     setExerciseList(exerciseList.filter(exercise => exercise.id !== id));
   };
 
@@ -64,7 +65,8 @@ const Exercise = () => {
             ))}
           </ul>
         </div>
-        {isModalOpen && <ExerciseModal onClose={closeModal} addExercise={addExercise} />}
+        {isModalOpen && <ExerciseModal
+          onClose={closeModal} addExercise={addExercise} />}
         {/* addExercise 함수를 prop으로 전달 */}
       </div>
     </div>
