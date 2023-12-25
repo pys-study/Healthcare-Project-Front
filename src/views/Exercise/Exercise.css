@@ -207,7 +207,7 @@ button {
   flex: 1;
   /* Adjust the flex-grow value as needed */
   text-align: center;
-  margin-right: 80px;
+  margin-right: 50px;
 }
 
 /* Style for input groups */
@@ -225,13 +225,6 @@ button {
   width: 100px;
   margin-right: 5px;
   /* Add some space between the input and its unit label */
-}
-
-/* Style for the total weight display */
-.totalWeight {
-  flex: 1;
-  /* Adjust the flex-grow value as needed */
-  text-align: center;
 }
 
 .removeExerciseBtn {

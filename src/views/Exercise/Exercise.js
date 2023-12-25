@@ -90,20 +90,36 @@ const Exercise = () => {
                       {exercise.name}
                     </div>
                     <div className="input-group">
-                      <input type="number" placeholder="중량" aria-label="중량" />
+                      <input
+                        type="number"
+                        placeholder="중량"
+                        aria-label="중량"
+                        value={exerciseDetails[exercise.id]?.weight || ''}
+                        onChange={(e) => handleDetailChange(exercise.id, 'weight', e.target.value)}
+                      />
                       <span className="input-unit">kg</span>
                     </div>
 
                     <div className="input-group">
-                      <input type="number" placeholder="세트 수" aria-label="세트 수" />
+                      <input
+                        type="number"
+                        placeholder="세트 수"
+                        aria-label="세트 수"
+                        value={exerciseDetails[exercise.id]?.sets || ''}
+                        onChange={(e) => handleDetailChange(exercise.id, 'sets', e.target.value)} />
                       <span className="input-unit">세트</span>
                     </div>
 
                     <div className="input-group">
-                      <input type="number" placeholder="횟수" aria-label="횟수" />
+                      <input
+                        type="number"
+                        placeholder="횟수"
+                        aria-label="횟수"
+                        value={exerciseDetails[exercise.id]?.reps || ''}
+                        onChange={(e) => handleDetailChange(exercise.id, 'reps', e.target.value)} />
                       <span className="input-unit">회</span>
                     </div>
-                    <div className='totalWeight'>
+                    <div>
                       총 무게: {calculateTotalWeight(exercise)} kg
                     </div>
                   </div>
