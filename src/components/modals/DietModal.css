@@ -92,36 +92,34 @@
   /* 호버 시 버튼 색상을 어둡게 변경 */
 }
 
-/* 음식 목록 스타일 */
-.food-list {
-  list-style: none;
-  /* 기본 목록 스타일 제거 */
-  padding: 0;
-  /* 기본 패딩 제거 */
-  margin-top: 20px;
-  /* 목록 위쪽 마진 추가 */
-  max-height: 300px;
-  /* 목록의 최대 높이 설정 */
-  overflow-y: auto;
-  /* 내용이 넘칠 경우 수직 스크롤바 표시 */
+.food-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* 음식 목록 항목 스타일 */
-.food-list li {
-  padding: 10px;
-  /* 항목 내부 여백 설정 */
-  border-bottom: 1px solid #ccc;
-  /* 항목 아래쪽 테두리 설정 */
-  cursor: pointer;
-  /* 항목 마우스 오버 시 포인터로 커서 변경 */
-  transition: background-color 0.2s ease-in-out;
-  /* 배경색 변경에 대한 부드러운 전환 효과 */
+.food-table th,
+.food-table td {
+  text-align: left;
+  padding: 8px;
 }
 
-/* 음식 목록 항목의 호버 효과 */
-.food-list li:hover {
-  background-color: #f7f7f7;
-  /* 호버 시 항목의 배경색을 밝게 변경 */
+.food-table th {
+  background-color: #f2f2f2;
+}
+
+.food-table tbody tr {
+  border-bottom: 1px solid #ddd;
+  /* 가로선 추가 */
+}
+
+.food-table tbody tr:last-child {
+  border-bottom: none;
+  /* 마지막 행의 가로선 제거 */
+}
+
+.food-table tbody tr:hover {
+  background-color: #f5f5f5;
+  /* 마우스를 올렸을 때의 배경색 변경 */
 }
 
 /* 취소 버튼에 대한 추가 스타일 */

@@ -12,10 +12,10 @@ const DietModal = ({ isModalOpen, closeModal, addFoodToMeal }) => {
     const fetchFoodItems = async () => {
       // 가정으로 API 호출 대신 더미 데이터를 사용합니다.
       const dummyFoodItems = [
-        { id: 1, name: '사과' },
-        { id: 2, name: '닭가슴살' },
-        { id: 3, name: '우둔살' },
-        // ...더 많은 식품 데이터
+        { id: 1, name: '사과', calories: 52, carbs: 14, protein: 0.3, fat: 0.2 },
+        { id: 2, name: '닭가슴살', calories: 165, carbs: 20, protein: 31, fat: 3.6 },
+        { id: 3, name: '우둔살', calories: 250, carbs: 30, protein: 20, fat: 20 },
+        // ...more food data
       ];
       setFoodItems(dummyFoodItems);
       // 실제로는 아래와 같이 API를 호출하게 됩니다.
@@ -33,13 +33,28 @@ const DietModal = ({ isModalOpen, closeModal, addFoodToMeal }) => {
       <div className="modal">
         <div className="modal-content">
           <span className="close" onClick={closeModal}>&times;</span>
-          <ul className="food-list">
-            {foodItems.map((item) => (
-              <li key={item.id} onDoubleClick={() => addFoodToMeal(item)}>
-                {item.name}
-              </li>
-            ))}
-          </ul>
+          <table className="food-table">
+            <thead>
+              <tr>
+                <th>이름</th>
+                <th>칼로리</th>
+                <th>탄수화물</th>
+                <th>단백질</th>
+                <th>지방</th>
+              </tr>
+            </thead>
+            <tbody>
+              {foodItems.map((item) => (
+                <tr key={item.id} onDoubleClick={() => addFoodToMeal(item)}>
+                  <td>{item.name}</td>
+                  <td>{item.calories}</td>
+                  <td>{item.carbs}g</td>
+                  <td>{item.protein}g</td>
+                  <td>{item.fat}g</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <div className="modal-actions">
             <button onClick={closeModal}>취소</button>
           </div>

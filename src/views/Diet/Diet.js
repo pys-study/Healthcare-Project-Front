@@ -55,7 +55,8 @@ const Diet = () => {
   // 식사 목록을 렌더링하는 함수
   const renderMealList = (mealType) => {
     return meals[mealType].map((foodItem, index) => (
-      <li className='food-item' key={index}>{foodItem.name}
+      <li className='food-item' key={index}>
+        {foodItem.name} - 칼로리: {foodItem.calories}, 탄수화물 : {foodItem.carbs}g, 단백질 : {foodItem.protein}g, 지방: {foodItem.fat}g
         <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, index)}>x</button>
       </li>
     ));
