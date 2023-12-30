@@ -23,8 +23,8 @@ const FullLayout = () => {
           </Container>
         </div>
       </div>
-      {/* <div className="LoginModal"></div>
-      <LoginModal /> */}
+      <div className="LoginModal"></div>
+      <LoginModal />
     </main>
   );
 };

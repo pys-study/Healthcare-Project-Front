@@ -31,6 +31,41 @@ body {
   /* 글자 크기 증가 */
 }
 
+.meal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.meal-table th,
+.meal-table td {
+  text-align: left;
+  padding: 8px;
+}
+
+.meal-table thead {
+  background-color: #f2f2f2;
+}
+
+.meal-table thead tr {
+  border-bottom: 2px solid #ddd;
+  /* 헤더 아래에 두꺼운 가로선 추가 */
+}
+
+.meal-table tbody tr {
+  border-bottom: 1px solid #ddd;
+  /* 각 행 아래에 얇은 가로선 추가 */
+}
+
+.meal-table tbody tr:last-child {
+  border-bottom: none;
+  /* 마지막 행의 가로선 제거 */
+}
+
+.meal-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
 /* meals section - 식사(아침, 점심, 저녁)를 표시하는 각 섹션의 스타일을 설정합니다. */
 #meals section {
   border: 1px solid #ccc;
@@ -66,39 +101,6 @@ body {
   /* 마우스 오버 시 커서를 손가락 모양으로 변경합니다. */
 }
 
-/* 각 식사 섹션에 대한 카운터 초기화 */
-#meals section {
-  counter-reset: food-item-counter;
-}
-
-/* 목록 항목에 번호를 표시 */
-.food-item::before {
-  counter-increment: food-item-counter;
-  /* 카운터 증가 */
-  content: counter(food-item-counter) ". ";
-  /* 번호와 점을 표시 */
-  margin-right: 10px;
-  /* 번호와 텍스트 사이의 간격 */
-}
-
-/* 목록 항목(li)을 컨테이너로 사용하여 내용과 버튼을 수평으로 정렬합니다. */
-.food-item {
-  display: flex;
-  /* Flexbox 레이아웃 사용 */
-  align-items: center;
-  /* 버튼을 아이템과 같은 높이에 위치시킵니다 */
-  padding: 5px;
-  /* 적당한 패딩을 추가하여 시각적 공간을 만듭니다 */
-  transition: background-color 0.3s ease;
-  /* 부드러운 배경색 변화 효과 */
-}
-
-/* 호버 시 목록 항목의 스타일 변경 */
-.food-item:hover {
-  background-color: #c3d8f5;
-  /* 배경색 변경 */
-  /* 추가적인 스타일 변경을 위한 코드는 여기에 작성 */
-}
 
 /* 'x' 버튼 스타일 */
 .remove-btn {

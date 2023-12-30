@@ -105,7 +105,7 @@ const LoginModal = () => {
                 >
                   <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
 
-                    <h2 className="fw-bold mb-2 text-uppercase">로그인</h2>
+                    <h3 className="fw-bold mb-2 text-uppercase">로그인</h3>
                     <p className="text-white-50 mb-5">이메일과 비밀번호를 입력해주세요</p>
 
                     <MDBInput onChange={handleChangeId} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='formControlLg' type='email' size="lg" />

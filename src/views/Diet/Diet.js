@@ -54,14 +54,35 @@ const Diet = () => {
 
   // 식사 목록을 렌더링하는 함수
   const renderMealList = (mealType) => {
-    return meals[mealType].map((foodItem, index) => (
-      <li className='food-item' key={index}>
-        {foodItem.name} - 칼로리: {foodItem.calories}, 탄수화물 : {foodItem.carbs}g, 단백질 : {foodItem.protein}g, 지방: {foodItem.fat}g
-        <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, index)}>x</button>
-      </li>
-    ));
+    return (
+      <table className="meal-table">
+        <thead>
+          <tr>
+            <th>음식 이름</th>
+            <th>칼로리(kal)</th>
+            <th>탄수화물(g)</th>
+            <th>단백질(g)</th>
+            <th>지방(g)</th>
+            <th>제거</th>
+          </tr>
+        </thead>
+        <tbody>
+          {meals[mealType].map((foodItem, index) => (
+            <tr key={index}>
+              <td>{foodItem.name}</td>
+              <td>{foodItem.calories}</td>
+              <td>{foodItem.carbs}g</td>
+              <td>{foodItem.protein}g</td>
+              <td>{foodItem.fat}g</td>
+              <td>
+                <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, index)}>x</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
   };
-
   // 선택된 식사 시간에서 특정 음식을 제거하는 함수
   const removeFoodFromMeal = (mealType, index) => {
     // 해당 식사 시간의 배열에서 index에 해당하는 아이템을 제거
@@ -92,28 +113,21 @@ const Diet = () => {
         {/* 아침 식사 섹션 */}
         <section id="breakfast">
           <h2>아침 식사</h2>
-          <ul id="breakfastList">
-            {renderMealList('breakfast')}
-          </ul>
+          {renderMealList('breakfast')}
           <button className="addFoodBtn" onClick={() => openModal('breakfast')}>+</button>
         </section>
 
         {/* 점심 식사 섹션 */}
         <section id="lunch">
           <h2>점심 식사</h2>
-
-          <ul id="lunchList">
-            {renderMealList('lunch')}
-          </ul>
+          {renderMealList('lunch')}
           <button className="addFoodBtn" onClick={() => openModal('lunch')}>+</button>
         </section>
 
         {/* 저녁 식사 섹션 */}
         <section id="dinner">
-          <h2 >저녁식사</h2>
-          <ul id="dinnerList">
-            {renderMealList('dinner')}
-          </ul>
+          <h2>저녁식사</h2>
+          {renderMealList('dinner')}
           <button className="addFoodBtn" onClick={() => openModal('dinner')}>+</button>
         </section>
       </div>
