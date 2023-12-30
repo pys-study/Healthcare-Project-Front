@@ -56,6 +56,25 @@ const LoginModal = () => {
 
   }
 
+  const fetchMembers = () => {
+    fetch('http://ec2-52-78-43-76.ap-northeast-2.compute.amazonaws.com:8080/members')
+      .then(response => {
+        // HTTP 상태 코드 체크
+        if (!response.ok) {
+          throw new Error('네트워크 응답이 올바르지 않습니다.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Get요청');
+        console.log('멤버 데이터:', data);
+      })
+      .catch(error => {
+        console.error('멤버 데이터 가져오기 실패:', error);
+      });
+  }
+
+
   const closeModal = (e) => {
     // 클릭한 이벤트의 타겟이 오버레이(배경)인지 확인합니다.
     if (e.target === e.currentTarget) {
@@ -111,8 +130,8 @@ const LoginModal = () => {
                     <MDBInput onChange={handleChangeId} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='formControlLg' type='email' size="lg" />
                     <MDBInput onChange={handleChangePassword} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='formControlLg' type='password' size="lg" />
 
-                    <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
-                    <MDBBtn onClick={handleClickLoginBtn} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
+                    <p className="small mb-3 pb-lg-2"><a className="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
+                    <MDBBtn onClick={fetchMembers} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
                       로그인
                     </MDBBtn>
 
@@ -122,7 +141,7 @@ const LoginModal = () => {
                       </MDBBtn>
 
                       <MDBBtn onClick={() => { alert("카카오 로그인 성공") }} tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'yellow' }}>
-                        <MDBIcon class='fas fa-comment' size="lg" />
+                        <MDBIcon className='fas fa-comment' size="lg" />
                       </MDBBtn>
 
                       <MDBBtn onClick={() => { alert("구글 로그인 성공") }} tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'white' }}>
