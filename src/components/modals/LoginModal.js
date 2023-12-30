@@ -12,12 +12,14 @@ import {
 }
   from 'mdb-react-ui-kit';
 import SignupModal from './SignupModal';
-
+import { testMemberApi } from '../../Api/TodoMembers';
 
 const LoginModal = () => {
+  // 모달의 가시성 상태 관리
   const [isOpen, setIsOpen] = useState(true);
-
+  // 회원가입 모달 상태 관리
   const [isSignup, setIsSignup] = useState(false)
+
   // isSignup이 false 회원가입을 안해도 된다.  => setIsSignup(false)
   // isSignup이 true 회원가입을 해라 => setIsSignup(true)
 
@@ -35,46 +37,38 @@ const LoginModal = () => {
     */
 
   }, [])
-  const handleClickLoginBtn = () => {
-    alert("로그인 버튼 클릭");
-    setIsOpen(false);
-    /* 
-      fetch('/login',{
-        method: "POST",
-        conteasdas/ json/,
-        body : JSON.sty({email, password})
-      }).then(e=>e.json()).then(e=>{
-        const {isExist} = e.data
-        if(isExist){
-          localStorage.setItem("email","test@naver.com")
-    closeModal();
-        }else {
-          alert("아이디 패스워드 틀림")
-        }
-      })
-    */
 
-  }
+  // const handleClickLoginBtn = () => {
+  //   alert("로그인 버튼 클릭");
+  //   setIsOpen(false);
+  //   /* 
+  //     fetch('/login',{
+  //       method: "POST",
+  //       conteasdas/ json/,
+  //       body : JSON.sty({email, password})
+  //     }).then(e=>e.json()).then(e=>{
+  //       const {isExist} = e.data
+  //       if(isExist){
+  //         localStorage.setItem("email","test@naver.com")
+  //   closeModal();
+  //       }else {
+  //         alert("아이디 패스워드 틀림")
+  //       }
+  //     })
+  //   */
 
-  const fetchMembers = () => {
-    fetch('http://ec2-52-78-43-76.ap-northeast-2.compute.amazonaws.com:8080/members')
+  // }
+
+  // api 호출 테스트
+  function fetchMembers() {
+    testMemberApi()
       .then(response => {
-        // HTTP 상태 코드 체크
-        if (!response.ok) {
-          throw new Error('네트워크 응답이 올바르지 않습니다.');
-        }
-        return response.json();
+        console.log("test");
       })
-      .then(data => {
-        console.log('Get요청');
-        console.log('멤버 데이터:', data);
-      })
-      .catch(error => {
-        console.error('멤버 데이터 가져오기 실패:', error);
-      });
+      .catch(error => console.log(error))
   }
 
-
+  // 모달 닫기 함수
   const closeModal = (e) => {
     // 클릭한 이벤트의 타겟이 오버레이(배경)인지 확인합니다.
     if (e.target === e.currentTarget) {
@@ -90,14 +84,18 @@ const LoginModal = () => {
     }
   };
 
+  // 이메일 상태 업데이트 함수
   const handleChangeId = (event) => {
     const value = event.target.value
     setEmail(value)
   }
+  // 비밀번호 상태 업데이트 함수
   const handleChangePassword = (event) => {
     const value = event.target.value
     setPassword(value)
   }
+
+
   return (
     <>
       {isOpen && (
