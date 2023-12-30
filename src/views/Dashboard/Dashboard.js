@@ -8,7 +8,7 @@ import bg1 from "../../assets/images/bg/bg1.jpg";
 import bg2 from "../../assets/images/bg/bg2.jpg";
 import bg3 from "../../assets/images/bg/bg3.jpg";
 import bg4 from "../../assets/images/bg/bg4.jpg";
-
+import React, { useState } from 'react';
 
 
 const BlogData = [
@@ -47,9 +47,38 @@ const BlogData = [
 ];
 
 const Dashboard = () => {
+
+
+  const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+  // 오늘 날짜를 yyyy-mm-dd 형식으로 가져오기
+  const today = new Date().toISOString().split('T')[0];
+
+  // 오늘 날짜를 상태로 관리
+  const [currentDate, setCurrentDate] = useState(today);
+
+  // 날짜와 요일을 문자열로 결합하는 함수
+  const formatDateWithDay = (date) => {
+    const dayOfWeek = weekdays[new Date(date).getDay()];
+    return `${date} (${dayOfWeek})`;
+  };
+
+  const inlineStyle = {
+    fontFamily: "'Arial', sans-serif", // 글꼴 설정: Arial과 기본 sans-serif 글꼴 사용
+    color: '#2c3e50', // 텍스트 색상: 진한 회색/파란색 계열
+    textAlign: 'center', // 텍스트 정렬: 중앙 정렬
+    fontSize: '2.5rem', // 글자 크기: 2.5rem (상대적 크기 단위)
+    margin: '20px 0', // 마진: 위아래로 20px, 좌우로 0
+    padding: '10px 0', // 패딩: 위아래로 10px, 좌우로 0
+    borderBottom: '2px solid #3498db', // 하단 테두리: 2px 두께, 실선, 파란색 계열
+    backgroundColor: '#ecf0f1', // 배경 색상: 옅은 회색/파란색 계열
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // 그림자: x축 0, y축 4px, 흐림 6px, 색상 검은색의 10% 투명도
+    borderRadius: '5px' // 테두리 둥글기: 모든 모서리를 5px의 반경으로 둥글게 설정
+  };
+
   return (
     <div>
-      <h3>2023년 12월 23일</h3>
+      <h1 style={inlineStyle}>{formatDateWithDay(currentDate)}</h1>
       <h4>섭취한 칼로리</h4>
       {/***Top Cards***/}
       <Row>

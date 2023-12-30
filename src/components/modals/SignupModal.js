@@ -87,7 +87,7 @@ const SignupModal = () => {
               <MDBCol col='12'>
                 <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }} onClick={handleModalContentClick}>
                   <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
-                    <h2 className='fw-bold mb-2 text-uppercase'>회원가입</h2>
+                    <h3 className='fw-bold mb-2 text-uppercase'>회원가입</h3>
                     <MDBInput onChange={handleChangeName} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이름' id='nameInput' type='text' size='lg' />
                     <MDBInput onChange={handleChangeGender} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='성별' id='genderInput' type='text' size='lg' />
                     <MDBInput onChange={handleChangeBirthdate} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='생년월일' id='birthdateInput' type='text' size='lg' />

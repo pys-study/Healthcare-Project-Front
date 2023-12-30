@@ -3,7 +3,7 @@ import './MyPage.css';
 const MyPage = () => {
   return (
     <div className="profile-container">
-      <h2>내 정보</h2>
+      <h3>내 정보</h3>
       <form>
         <div className="form-group">
           <label htmlFor="email">이메일:</label>
