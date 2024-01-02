@@ -1,9 +1,9 @@
 import { Col, Row } from "reactstrap";
-import SalesChart from "../../components/dashboard/SalesChart";
-import Feeds from "../../components/dashboard/Feeds";
-import ProjectTables from "../../components/dashboard/ProjectTable";
-import TopCards from "../../components/dashboard/TopCards";
-import Blog from "../../components/dashboard/Blog";
+import CaloriesChart from "../../components/dashboards/CalorieChart";
+import TopCards from "../../components/dashboards/TopCards";
+import Blog from "../../components/dashboards/Blog";
+import ExerciseLogTable from "../../components/dashboards/ExerciseLogTable";
+import WeightChart from "../../components/dashboards/WeightChart";
 import bg1 from "../../assets/images/bg/bg1.jpg";
 import bg2 from "../../assets/images/bg/bg2.jpg";
 import bg3 from "../../assets/images/bg/bg3.jpg";
@@ -79,7 +79,7 @@ const Dashboard = () => {
   return (
     <div>
       <h1 style={inlineStyle}>{formatDateWithDay(currentDate)}</h1>
-      <h4>섭취한 칼로리</h4>
+      <h4>오늘 섭취한 칼로리</h4>
       {/***Top Cards***/}
       <Row>
         <Col sm="6" lg="3">
@@ -122,16 +122,16 @@ const Dashboard = () => {
       {/***Sales & Feed***/}
       <Row>
         <Col xxl="12">
-          <SalesChart />
+          <CaloriesChart />
         </Col>
       </Row>
       {/***Table ***/}
       <Row>
-        <Col lg="7" xxl="8" md="12">
-          <ProjectTables />
+        <Col lg="7" xxl="12" md="12">
+          <ExerciseLogTable />
         </Col>
-        <Col md="12" lg="5" xxl="4">
-          <Feeds />
+        <Col md="12" lg="5" xxl="12">
+          <WeightChart />
         </Col>
       </Row>
       {/***Blog Cards***/}

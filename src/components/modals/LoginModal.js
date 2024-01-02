@@ -61,6 +61,7 @@ const LoginModal = () => {
 
   // api 호출 테스트
   function fetchMembers() {
+    setIsOpen(false);
     testMemberApi()
       .then(response => {
         console.log("test");

@@ -42,12 +42,12 @@ const Diet = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+  // Immutable.js
   // 선택된 식사 시간에 음식을 추가하는 함수
   const addFoodToMeal = (foodItem) => {
     setMeals((prevMeals) => ({
       ...prevMeals,
-      [selectedMeal]: [...prevMeals[selectedMeal], foodItem]
+      [selectedMeal]: [...prevMeals[selectedMeal], foodItem],
     }));
     closeModal();
   };
@@ -63,7 +63,7 @@ const Diet = () => {
             <th>탄수화물(g)</th>
             <th>단백질(g)</th>
             <th>지방(g)</th>
-            <th>제거</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -126,7 +126,7 @@ const Diet = () => {
 
         {/* 저녁 식사 섹션 */}
         <section id="dinner">
-          <h2>저녁식사</h2>
+          <h2>저녁 식사</h2>
           {renderMealList('dinner')}
           <button className="addFoodBtn" onClick={() => openModal('dinner')}>+</button>
         </section>
