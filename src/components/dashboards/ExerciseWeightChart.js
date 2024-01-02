@@ -1,7 +1,7 @@
 import { Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
 import Chart from "react-apexcharts";
 
-const WeightChart = () => {
+const ExerciseWeightChart = () => {
   const chartoptions = {
     series: [
       {
@@ -62,4 +62,4 @@ const WeightChart = () => {
   );
 };
 
-export default WeightChart;
+export default ExerciseWeightChart;

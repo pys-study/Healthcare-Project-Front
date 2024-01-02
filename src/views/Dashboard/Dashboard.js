@@ -3,7 +3,8 @@ import CaloriesChart from "../../components/dashboards/CalorieChart";
 import TopCards from "../../components/dashboards/TopCards";
 import Blog from "../../components/dashboards/Blog";
 import ExerciseLogTable from "../../components/dashboards/ExerciseLogTable";
-import WeightChart from "../../components/dashboards/WeightChart";
+import ExerciseWeightChart from "../../components/dashboards/ExerciseWeightChart";
+import DailyCalorieChart from "../../components/dashboards/DailyCalorieChart";
 import bg1 from "../../assets/images/bg/bg1.jpg";
 import bg2 from "../../assets/images/bg/bg2.jpg";
 import bg3 from "../../assets/images/bg/bg3.jpg";
@@ -119,7 +120,14 @@ const Dashboard = () => {
           />
         </Col>
       </Row>
-      {/***Sales & Feed***/}
+
+      {/***금일 섭취 칼로리***/}
+      <Row>
+        <Col xxl="12">
+          <DailyCalorieChart />
+        </Col>
+      </Row>
+      {/***주간 섭취 칼로리***/}
       <Row>
         <Col xxl="12">
           <CaloriesChart />
@@ -131,7 +139,7 @@ const Dashboard = () => {
           <ExerciseLogTable />
         </Col>
         <Col md="12" lg="5" xxl="12">
-          <WeightChart />
+          <ExerciseWeightChart />
         </Col>
       </Row>
       {/***Blog Cards***/}
