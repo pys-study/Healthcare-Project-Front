@@ -22,16 +22,6 @@ const Diet = () => {
     return `${date} (${dayOfWeek})`;
   };
 
-  // 현재 선택된 식사 시간을 저장하는 상태 ('breakfast', 'lunch', 'dinner')
-  const [selectedMeal, setSelectedMeal] = useState('');
-
-  // 아침, 점심, 저녁 식사에 대한 음식 목록을 관리하는 상태
-  const [meals, setMeals] = useState({
-    breakfast: [],
-    lunch: [],
-    dinner: []
-  });
-
   // 모달을 여는 함수, 선택된 식사 시간을 설정
   const openModal = (mealType) => {
     setSelectedMeal(mealType);
@@ -42,14 +32,85 @@ const Diet = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  // 현재 선택된 식사 시간을 저장하는 상태 ('breakfast', 'lunch', 'dinner')
+  const [selectedMeal, setSelectedMeal] = useState('');
+
+  // 아침, 점심, 저녁 식사에 대한 음식 목록을 관리하는 상태
+  const [meals, setMeals] = useState({
+    breakfast: [],
+    lunch: [],
+    dinner: []
+  });
+
   // Immutable.js
   // 선택된 식사 시간에 음식을 추가하는 함수
   const addFoodToMeal = (foodItem) => {
-    setMeals((prevMeals) => ({
+    setMeals((prevMeals) => ({ // 이전 meals의 상태 prevMeals를 인자로 받아옴
       ...prevMeals,
-      [selectedMeal]: [...prevMeals[selectedMeal], foodItem],
+      [selectedMeal]: [...prevMeals[selectedMeal], foodItem], // 기존 상태를 복사하고 새로운 항목을 추가
     }));
+
+    // try {
+    //   // POST 요청을 통해 서버에 아이템 추가
+    //   const response = await fetch('/api/addFoodItem', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ mealType: selectedMeal, foodItem }),
+    //   });
+
+    //   if (response.ok) {
+    //     // 성공적으로 추가된 경우, UI 업데이트
+    //     setMeals((prevMeals) => ({
+    //       ...prevMeals,
+    //       [selectedMeal]: [...prevMeals[selectedMeal], foodItem],
+    //     }));
+    //   } else {
+    //     // 요청 실패 처리
+    //     throw new Error('Failed to add food item');
+    //   }
+    // } catch (error) {
+    //   // 에러 처리 (에러 메시지 표시 등)
+    // }
+
+
     closeModal();
+  };
+
+  // 선택된 식사 시간에서 특정 음식을 제거하는 함수
+  const removeFoodFromMeal = (mealType, index) => {
+    // 해당 식사 시간의 배열에서 index에 해당하는 아이템을 제거
+    setMeals((prevMeals) => {
+      const filteredMeals = prevMeals[mealType].filter((_, i) => i !== index);
+      return {
+        ...prevMeals,
+        [mealType]: filteredMeals
+      };
+    });
+
+    // const itemToRemove = meals[mealType][index];
+
+    // try {
+    //   // DELETE 요청을 통해 서버에서 아이템 제거
+    //   const response = await fetch(`/api/removeFoodItem/${itemToRemove.id}`, {
+    //     method: 'DELETE',
+    //   });
+
+    //   if (response.ok) {
+    //     // 성공적으로 제거된 경우, UI 업데이트
+    //     setMeals((prevMeals) => ({
+    //       ...prevMeals,
+    //       [mealType]: prevMeals[mealType].filter((_, i) => i !== index),
+    //     }));
+    //   } else {
+    //     // 요청 실패 처리
+    //     throw new Error('Failed to remove food item');
+    //   }
+    // } catch (error) {
+    //   // 에러 처리 (에러 메시지 표시 등)
+    // }
   };
 
   // 식사 목록을 렌더링하는 함수
@@ -70,10 +131,10 @@ const Diet = () => {
           {meals[mealType].map((foodItem, index) => (
             <tr key={index}>
               <td>{foodItem.name}</td>
-              <td>{foodItem.calories}</td>
-              <td>{foodItem.carbs}g</td>
-              <td>{foodItem.protein}g</td>
-              <td>{foodItem.fat}g</td>
+              <td>{foodItem.calories} kcal</td>
+              <td>{foodItem.carbs} g</td>
+              <td>{foodItem.protein} g</td>
+              <td>{foodItem.fat} g</td>
               <td>
                 <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, index)}>x</button>
               </td>
@@ -82,17 +143,6 @@ const Diet = () => {
         </tbody>
       </table>
     );
-  };
-  // 선택된 식사 시간에서 특정 음식을 제거하는 함수
-  const removeFoodFromMeal = (mealType, index) => {
-    // 해당 식사 시간의 배열에서 index에 해당하는 아이템을 제거
-    setMeals((prevMeals) => {
-      const filteredMeals = prevMeals[mealType].filter((_, i) => i !== index);
-      return {
-        ...prevMeals,
-        [mealType]: filteredMeals
-      };
-    });
   };
 
   return (
@@ -141,3 +191,31 @@ const Diet = () => {
 };
 
 export default Diet;
+
+
+
+// [
+//     {
+//       member: {
+//         name:'고길동',
+//         id : "aaa",
+//         password : '123',
+//         gender : '남',
+//         email : 'aaa@aa.com',
+//         age : 32
+//       },
+//       dietInfo : {
+//         dietInfoId: 1,
+//         caloreis : 50,
+//         dietName : "달걀",
+//         carbohydrate : 50,
+//         protein : 50,
+//         fats : 50
+//       },
+//       dietRecordId : 1,
+//       record : "2024-01-02",
+//       totalCalories:50,
+//       timeOfMeal:"점심"
+//     }
+// ]
+//

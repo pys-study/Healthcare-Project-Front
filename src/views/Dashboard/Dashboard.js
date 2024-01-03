@@ -1,6 +1,6 @@
 import { Col, Row } from "reactstrap";
 import CaloriesChart from "../../components/dashboards/CalorieChart";
-import TopCards from "../../components/dashboards/TopCards";
+import CalorieCards from "../../components/dashboards/CalorieCards";
 import Blog from "../../components/dashboards/Blog";
 import ExerciseLogTable from "../../components/dashboards/ExerciseLogTable";
 import ExerciseWeightChart from "../../components/dashboards/ExerciseWeightChart";
@@ -10,6 +10,7 @@ import bg2 from "../../assets/images/bg/bg2.jpg";
 import bg3 from "../../assets/images/bg/bg3.jpg";
 import bg4 from "../../assets/images/bg/bg4.jpg";
 import React, { useState } from 'react';
+import axios from "axios";
 
 
 const BlogData = [
@@ -84,38 +85,38 @@ const Dashboard = () => {
       {/***Top Cards***/}
       <Row>
         <Col sm="6" lg="3">
-          <TopCards
+          <CalorieCards
             bg="bg-light-success text-success"
             title="아침 섭취 칼로리"
-            subtitle="아침"
-            earning="319kcal"
+            subtitle="아침 식사"
+            earning="319 kcal"
             icon="bi bi-wallet"
           />
         </Col>
         <Col sm="6" lg="3">
-          <TopCards
+          <CalorieCards
             bg="bg-light-danger text-danger"
             title="점심 섭취 칼로리"
-            subtitle="점심"
-            earning="980kcal"
+            subtitle="점심 식사"
+            earning="980 kcal"
             icon="bi bi-coin"
           />
         </Col>
         <Col sm="6" lg="3">
-          <TopCards
+          <CalorieCards
             bg="bg-light-warning text-warning"
             title="저녁 섭취 칼로리"
-            subtitle="저녁"
-            earning="752kcal"
+            subtitle="저녁 식사"
+            earning="752 kcal"
             icon="bi bi-basket3"
           />
         </Col>
         <Col sm="6" lg="3">
-          <TopCards
+          <CalorieCards
             bg="bg-light-info text-into"
             title="하루 섭취 칼로리"
             subtitle="총 합계"
-            earning="2051kcal"
+            earning="2051 kcal"
             icon="bi bi-bag"
           />
         </Col>
@@ -133,9 +134,10 @@ const Dashboard = () => {
           <CaloriesChart />
         </Col>
       </Row>
-      {/***Table ***/}
+      {/***ExerciseLogTalbe ***/}
       <Row>
         <Col lg="7" xxl="12" md="12">
+          <h3 style={{ textAlign: 'center' }}>오늘의 운동</h3>
           <ExerciseLogTable />
         </Col>
         <Col md="12" lg="5" xxl="12">
@@ -156,7 +158,7 @@ const Dashboard = () => {
           </Col>
         ))}
       </Row>
-    </div>
+    </div >
   );
 };
 

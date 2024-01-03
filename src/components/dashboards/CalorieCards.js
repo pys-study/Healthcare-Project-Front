@@ -1,6 +1,6 @@
 import { Card, CardBody } from "reactstrap";
 
-const TopCards = (props) => {
+const CalorieCards = (props) => {
   return (
     <Card>
       <CardBody>
@@ -9,7 +9,6 @@ const TopCards = (props) => {
             <i className={props.icon}></i>
           </div>
           <div className="ms-3">
-            <div>(TopCards)</div>
             <h3 className="mb-0 font-weight-bold">{props.earning}</h3>
             <small className="text-muted">{props.subtitle}</small>
           </div>
@@ -19,4 +18,4 @@ const TopCards = (props) => {
   );
 };
 
-export default TopCards;
+export default CalorieCards;
