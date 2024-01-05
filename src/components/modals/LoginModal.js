@@ -13,6 +13,7 @@ import {
   from 'mdb-react-ui-kit';
 import SignupModal from './SignupModal';
 import { testMemberApi } from '../../Api/TodoMembers';
+import { func } from 'prop-types';
 
 const LoginModal = () => {
   // 모달의 가시성 상태 관리
@@ -24,6 +25,7 @@ const LoginModal = () => {
   // isSignup이 true 회원가입을 해라 => setIsSignup(true)
 
 
+  // useState 훅을 사용하여 email과 password 두 상태 변수 선언
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -38,36 +40,81 @@ const LoginModal = () => {
 
   }, [])
 
-  // const handleClickLoginBtn = () => {
-  //   alert("로그인 버튼 클릭");
-  //   setIsOpen(false);
-  //   /* 
-  //     fetch('/login',{
-  //       method: "POST",
-  //       conteasdas/ json/,
-  //       body : JSON.sty({email, password})
-  //     }).then(e=>e.json()).then(e=>{
-  //       const {isExist} = e.data
-  //       if(isExist){
-  //         localStorage.setItem("email","test@naver.com")
-  //   closeModal();
-  //       }else {
-  //         alert("아이디 패스워드 틀림")
-  //       }
-  //     })
-  //   */
 
-  // }
+  let accessToken;
 
-  // api 호출 테스트
-  function fetchMembers() {
-    setIsOpen(false);
-    testMemberApi()
-      .then(response => {
-        console.log("test");
+  const handleClickLoginBtn = () => {
+    alert("로그인 버튼 클릭");
+    // setIsOpen(false);
+
+    //   fetch('/login',{
+    //     method: "POST",
+    //     conteasdas/ json/,
+    //     body : JSON.sty({email, password})
+    //   }).then(e=>e.json()).then(e=>{
+    //     const {isExist} = e.data
+    //     if(isExist){
+    //       localStorage.setItem("email","test@naver.com")
+    // closeModal();
+    //     }else {
+    //       alert("아이디 패스워드 틀림")
+    //     }
+    //   })
+
+
+
+
+    // 요청 본문 생성
+    const requestBody = JSON.stringify({ username: email, password });
+
+
+    // 서버로 POST 요청 보내기
+    fetch("http://ec2-52-78-43-76.ap-northeast-2.compute.amazonaws.com:8080/members/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: requestBody
+    })
+      .then(response => response.json())
+      .then(data => {
+        // 서버 응답을 문자열로 변환
+        const accessToken = data.accessToken;
+        console.log(accessToken);
       })
-      .catch(error => console.log(error))
+      .catch(error => console.error(error)); // 오류 처리
+
   }
+
+  function test() {
+    alert('test');
+    // 서버로 POST 요청 보내기
+    fetch("http://ec2-52-78-43-76.ap-northeast-2.compute.amazonaws.com:8080/members/test", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + accessToken
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        // 서버 응답을 문자열로 변환
+        const message = `Test 응답: ${JSON.stringify(data)}`;
+        console.log(message);
+      })
+      .catch(error => console.error(error)); // 오류 처리
+  }
+
+
+
+  // // api 호출 테스트
+  // function fetchMembers() {
+  //   setIsOpen(false);
+  //   testMemberApi()
+  //     .then(response => {
+  //       console.log("test");
+  //     })
+  //     .catch(error => console.log(error))
+  // }
 
   // 모달 닫기 함수
   const closeModal = (e) => {
@@ -96,6 +143,11 @@ const LoginModal = () => {
     setPassword(value)
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleClickLoginBtn(); // 로그인 버튼 클릭과 동일한 로직 수행
+    }
+  }
 
   return (
     <>
@@ -122,20 +174,20 @@ const LoginModal = () => {
                   onClick={handleModalContentClick} // 모달 내부 컨텐츠 클릭 이벤트 핸들러
                 >
                   <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
-
                     <h3 className="fw-bold mb-2 text-uppercase">로그인</h3>
                     <p className="text-white-50 mb-5">이메일과 비밀번호를 입력해주세요</p>
 
-                    <MDBInput onChange={handleChangeId} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='formControlLg' type='email' size="lg" />
-                    <MDBInput onChange={handleChangePassword} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='formControlLg' type='password' size="lg" />
+                    <MDBInput onChange={handleChangeId} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='emailInput' type='email' size="lg" />
+                    <MDBInput onChange={handleChangePassword} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='passwordInput' type='password' size="lg" />
+
 
                     <p className="small mb-3 pb-lg-2"><a className="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
-                    <MDBBtn onClick={fetchMembers} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
+                    <MDBBtn onClick={handleClickLoginBtn} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
                       로그인
                     </MDBBtn>
 
                     <div className='d-flex flex-row mt-3 mb-5'>
-                      <MDBBtn tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'white' }}>
+                      <MDBBtn onClick={test} tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'white' }}>
                         <MDBIcon fab icon='github' size="lg" />
                       </MDBBtn>
 
