@@ -30,63 +30,51 @@ const LoginModal = () => {
   const [password, setPassword] = useState("")
 
   useEffect(() => {
-    /* 
-      로그인 되어있는지 체크 해서
-      const email = localStorage.getItem("email")
-      if(!email){
-        setIsOpen(true)
-      }
-    */
+    // 로컬 스토리지에서 accessToken을 가져옵니다.
+    const accessToken = localStorage.getItem("accessToken");
 
-  }, [])
+    // accessToken이 존재하는지 확인합니다.
+    if (accessToken) {
+      // accessToken이 있다면 사용자가 이미 로그인한 것으로 간주합니다.
+      // 따라서 로그인 모달을 닫습니다.
+      setIsOpen(false);
+    } else {
+      // accessToken이 없다면 사용자가 로그인하지 않은 것으로 간주합니다.
+      // 로그인 모달을 엽니다.
+      setIsOpen(true);
+    }
+  }, []); // 빈 배열을 의존성으로 제공하여 컴포넌트 마운트 시에만 실행됩니다.
+
 
 
   const handleClickLoginBtn = () => {
-
-    // 요청 본문 생성
     const requestBody = JSON.stringify({ username: email, password });
-
 
     getAccessToken(requestBody)
       .then(response => {
-
-        // 서버 응답을 문자열로 변환
         const accessToken = response.data.accessToken;
         console.log(accessToken);
+        localStorage.setItem("accessToken", accessToken);
 
-        // 로컬 스토리지에 accessToken 저장
-        if (accessToken) {
-          localStorage.setItem("accessToken", accessToken);
-        }
       })
       .catch(error => {
         console.log(error);
+        alert("로그인 실패");
       })
 
     getUserId()
       .then(response => {
         const userId = response.data;
         console.log(userId);
+        alert("로그인 성공");
+        setIsOpen(false);
 
-        if (userId) {
-          alert("로그인 성공");
-          setIsOpen(false);
-        }
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error)
+        alert("로그인 실패");
+      });
   }
-
-
-
-  // // api 호출 테스트
-  // function fetchMembers() {
-  //   setIsOpen(false);
-  //   testMemberApi()
-  //     .then(response => {
-  //       console.log("test");
-  //     })
-  //     .catch(error => console.log(error))
-  // }
 
   // 모달 닫기 함수
   const closeModal = (e) => {
