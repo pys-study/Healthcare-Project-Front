@@ -12,8 +12,8 @@ import {
 }
   from 'mdb-react-ui-kit';
 import SignupModal from './SignupModal';
-// import { testMemberApi } from '../../Api/TodoMembers';
-// import { func } from 'prop-types';
+import { getAccessToken } from '../../Api/getAccessToken';
+import { getUserId } from '../../Api/getUserId';
 
 const LoginModal = () => {
   // 모달의 가시성 상태 관리
@@ -47,38 +47,25 @@ const LoginModal = () => {
     const requestBody = JSON.stringify({ username: email, password });
 
 
-    // 서버로 POST 요청 보내기
-    fetch("http://ec2-52-78-43-76.ap-northeast-2.compute.amazonaws.com:8080/members/sign-in", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: requestBody
-    })
-      .then(response => response.json())
-      .then(data => {
+    getAccessToken(requestBody)
+      .then(response => {
+
         // 서버 응답을 문자열로 변환
-        const accessToken = data.accessToken;
+        const accessToken = response.data.accessToken;
         console.log(accessToken);
 
         // 로컬 스토리지에 accessToken 저장
         if (accessToken) {
           localStorage.setItem("accessToken", accessToken);
         }
-
       })
-      .catch(error => console.error(error)); // 오류 처리
+      .catch(error => {
+        console.log(error);
+      })
 
-
-    fetch("http://ec2-52-78-43-76.ap-northeast-2.compute.amazonaws.com:8080/members/test", {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("accessToken")
-      }
-    }).then(response => response.text())
-      .then(data => {
-        // 서버 응답을 문자열로 변환
-        const userId = data;
+    getUserId()
+      .then(response => {
+        const userId = response.data;
         console.log(userId);
 
         if (userId) {
@@ -86,9 +73,7 @@ const LoginModal = () => {
           setIsOpen(false);
         }
       })
-      .catch(error => console.error(error)); // 오류 처리
-
-
+      .catch(error => console.log(error));
   }
 
 
