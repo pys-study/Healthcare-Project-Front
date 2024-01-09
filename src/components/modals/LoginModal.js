@@ -12,18 +12,18 @@ import {
 }
   from 'mdb-react-ui-kit';
 import SignupModal from './SignupModal';
-import { testMemberApi } from '../../Api/TodoMembers';
-import { func } from 'prop-types';
+// import { testMemberApi } from '../../Api/TodoMembers';
+// import { func } from 'prop-types';
 
 const LoginModal = () => {
   // 모달의 가시성 상태 관리
   const [isOpen, setIsOpen] = useState(true);
   // 회원가입 모달 상태 관리
   const [isSignup, setIsSignup] = useState(false)
-
   // isSignup이 false 회원가입을 안해도 된다.  => setIsSignup(false)
   // isSignup이 true 회원가입을 해라 => setIsSignup(true)
 
+  const [userId, setUserId] = useState("");
 
   // useState 훅을 사용하여 email과 password 두 상태 변수 선언
   const [email, setEmail] = useState("")
@@ -41,28 +41,7 @@ const LoginModal = () => {
   }, [])
 
 
-  let accessToken;
-
   const handleClickLoginBtn = () => {
-    alert("로그인 버튼 클릭");
-    // setIsOpen(false);
-
-    //   fetch('/login',{
-    //     method: "POST",
-    //     conteasdas/ json/,
-    //     body : JSON.sty({email, password})
-    //   }).then(e=>e.json()).then(e=>{
-    //     const {isExist} = e.data
-    //     if(isExist){
-    //       localStorage.setItem("email","test@naver.com")
-    // closeModal();
-    //     }else {
-    //       alert("아이디 패스워드 틀림")
-    //     }
-    //   })
-
-
-
 
     // 요청 본문 생성
     const requestBody = JSON.stringify({ username: email, password });
@@ -81,27 +60,35 @@ const LoginModal = () => {
         // 서버 응답을 문자열로 변환
         const accessToken = data.accessToken;
         console.log(accessToken);
+
+        // 로컬 스토리지에 accessToken 저장
+        if (accessToken) {
+          localStorage.setItem("accessToken", accessToken);
+        }
+
       })
       .catch(error => console.error(error)); // 오류 처리
 
-  }
 
-  function test() {
-    alert('test');
-    // 서버로 POST 요청 보내기
     fetch("http://ec2-52-78-43-76.ap-northeast-2.compute.amazonaws.com:8080/members/test", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer " + accessToken
+        "Authorization": "Bearer " + localStorage.getItem("accessToken")
       }
-    })
-      .then(response => response.json())
+    }).then(response => response.text())
       .then(data => {
         // 서버 응답을 문자열로 변환
-        const message = `Test 응답: ${JSON.stringify(data)}`;
-        console.log(message);
+        const userId = data;
+        console.log(userId);
+
+        if (userId) {
+          alert("로그인 성공");
+          setIsOpen(false);
+        }
       })
       .catch(error => console.error(error)); // 오류 처리
+
+
   }
 
 
@@ -187,7 +174,7 @@ const LoginModal = () => {
                     </MDBBtn>
 
                     <div className='d-flex flex-row mt-3 mb-5'>
-                      <MDBBtn onClick={test} tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'white' }}>
+                      <MDBBtn tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'white' }}>
                         <MDBIcon fab icon='github' size="lg" />
                       </MDBBtn>
 
