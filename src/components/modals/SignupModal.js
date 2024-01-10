@@ -59,6 +59,12 @@ const SignupModal = () => {
     window.location.reload(); // 현재 페이지 새로 고침
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSignup(); // 로그인 버튼 클릭과 동일한 로직 수행
+    }
+  }
+
   return (
     <>
       {isOpen && (
@@ -83,11 +89,11 @@ const SignupModal = () => {
                 <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }} onClick={handleModalContentClick}>
                   <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
                     <h3 className='fw-bold mb-2 text-uppercase'>회원가입</h3>
-                    <MDBInput onChange={handleChangeName} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이름' id='nameInput' type='text' size='lg' />
-                    <MDBInput onChange={handleChangeGender} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='성별' id='genderInput' type='text' size='lg' />
-                    <MDBInput onChange={handleChangeBirthdate} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='생년월일' id='birthdateInput' type='text' size='lg' />
-                    <MDBInput onChange={handleChangeEmail} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='emailInput' type='email' size='lg' />
-                    <MDBInput onChange={handleChangePassword} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='passwordInput' type='password' size='lg' />
+                    <MDBInput onChange={handleChangeName} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이름' id='nameInput' type='text' size='lg' />
+                    <MDBInput onChange={handleChangeGender} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='성별' id='genderInput' type='text' size='lg' />
+                    <MDBInput onChange={handleChangeBirthdate} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='생년월일' id='birthdateInput' type='text' size='lg' />
+                    <MDBInput onChange={handleChangeEmail} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='emailInput' type='email' size='lg' />
+                    <MDBInput onChange={handleChangePassword} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='passwordInput' type='password' size='lg' />
                     <MDBBtn onClick={handleSignup} style={{ width: '170px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
                       회원가입
                     </MDBBtn>

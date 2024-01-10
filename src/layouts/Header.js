@@ -27,6 +27,10 @@ const Header = () => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
+  const logout = () => {
+    window.localStorage.removeItem('accessToken');
+    window.location.reload();
+  }
   return (
     <Navbar color="dark" dark expand="md">
       <div className="d-flex align-items-center">
@@ -96,7 +100,7 @@ const Header = () => {
             <DropdownItem divider />
             <DropdownItem>My Balance</DropdownItem>
             <DropdownItem>Inbox</DropdownItem>
-            <DropdownItem>로그아웃</DropdownItem>
+            <DropdownItem onClick={logout}>로그아웃</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>

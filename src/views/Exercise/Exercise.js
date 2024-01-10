@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
-
+import getExerciseRecord from '../../Api/getExerciseRecord';
 
 const Exercise = () => {
 
@@ -59,6 +59,10 @@ const Exercise = () => {
     const totalWeight = weight * sets * reps;
     return isNaN(totalWeight) ? 0 : totalWeight;
   };
+
+  const test = () => {
+    getExerciseRecord();
+  }
 
   return (
     <div>
@@ -130,7 +134,7 @@ const Exercise = () => {
           </div>
           <div className="button-container">
             <button className="select-button" onClick={openModal}>운동 선택하기</button>
-            <button className="save-button">저장하기</button>
+            <button onClick={test} className="save-button">저장하기</button>
             <button className="edit-button">수정하기</button>
           </div>
           {isModalOpen && <ExerciseModal

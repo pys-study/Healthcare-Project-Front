@@ -1,6 +1,6 @@
 import { apiClient } from './ApiClient'; // apiClient 임포트
 
-const signIn = (email, password, setAccessToken, setIsOpen) => {
+const logIn = (email, password, setAccessToken, setIsOpen) => {
   const requestBody = { username: email, password };
 
   return apiClient.post("/members/sign-in", requestBody)
@@ -18,4 +18,4 @@ const signIn = (email, password, setAccessToken, setIsOpen) => {
     });
 };
 
-export default signIn;
+export default logIn;

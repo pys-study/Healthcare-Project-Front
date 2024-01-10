@@ -12,16 +12,12 @@ import {
 }
   from 'mdb-react-ui-kit';
 import SignupModal from './SignupModal';
-import signIn from '../../Api/signIn';
+import logIn from '../../Api/logIn';
 
 const LoginModal = () => {
 
   const [isOpen, setIsOpen] = useState(true);
   const [isSignup, setIsSignup] = useState(false)
-  // isSignup이 false 회원가입을 안해도 된다.  => setIsSignup(false)
-  // isSignup이 true 회원가입을 해라 => setIsSignup(true)
-
-  // useState 훅을 사용하여 email과 password 두 상태 변수 선언
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [accessToken, setAccessToken] = useState("");
@@ -36,7 +32,7 @@ const LoginModal = () => {
   }, []); // 빈 배열을 의존성으로 제공하여 컴포넌트 마운트 시에만 실행됩니다.
 
   const handleClickLoginBtn = () => {
-    signIn(email, password, setAccessToken, setIsOpen);
+    logIn(email, password, setAccessToken, setIsOpen);
   }
 
   const closeModal = (e) => {
@@ -46,18 +42,16 @@ const LoginModal = () => {
   };
 
   const handleModalContentClick = (e) => {
-    // 모달 내부의 특정 요소를 클릭할 때만 모달 종료
     if (!e.target.classList.contains('custom-close-button')) {
-      e.stopPropagation(); // 이벤트 전파 방지
+      e.stopPropagation();
     }
   };
 
-  // 이메일 상태 업데이트 함수
   const handleChangeId = (event) => {
     const value = event.target.value
     setEmail(value)
   }
-  // 비밀번호 상태 업데이트 함수
+
   const handleChangePassword = (event) => {
     const value = event.target.value
     setPassword(value)
