@@ -12,79 +12,39 @@ import {
 }
   from 'mdb-react-ui-kit';
 import SignupModal from './SignupModal';
-import { getAccessToken } from '../../Api/getAccessToken';
-import { getUserId } from '../../Api/getUserId';
+import signIn from '../../Api/signIn';
 
 const LoginModal = () => {
-  // 모달의 가시성 상태 관리
+
   const [isOpen, setIsOpen] = useState(true);
-  // 회원가입 모달 상태 관리
   const [isSignup, setIsSignup] = useState(false)
   // isSignup이 false 회원가입을 안해도 된다.  => setIsSignup(false)
   // isSignup이 true 회원가입을 해라 => setIsSignup(true)
 
-  const [userId, setUserId] = useState("");
-
   // useState 훅을 사용하여 email과 password 두 상태 변수 선언
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
-    // 로컬 스토리지에서 accessToken을 가져옵니다.
     const accessToken = localStorage.getItem("accessToken");
-
-    // accessToken이 존재하는지 확인합니다.
     if (accessToken) {
-      // accessToken이 있다면 사용자가 이미 로그인한 것으로 간주합니다.
-      // 따라서 로그인 모달을 닫습니다.
       setIsOpen(false);
     } else {
-      // accessToken이 없다면 사용자가 로그인하지 않은 것으로 간주합니다.
-      // 로그인 모달을 엽니다.
       setIsOpen(true);
     }
   }, []); // 빈 배열을 의존성으로 제공하여 컴포넌트 마운트 시에만 실행됩니다.
 
-
-
   const handleClickLoginBtn = () => {
-    const requestBody = JSON.stringify({ username: email, password });
-
-    getAccessToken(requestBody)
-      .then(response => {
-        const accessToken = response.data.accessToken;
-        console.log(accessToken);
-        localStorage.setItem("accessToken", accessToken);
-
-      })
-      .catch(error => {
-        console.log(error);
-        alert("로그인 실패");
-      })
-
-    getUserId()
-      .then(response => {
-        const userId = response.data;
-        console.log(userId);
-        alert("로그인 성공");
-        setIsOpen(false);
-
-      })
-      .catch(error => {
-        console.log(error)
-        alert("로그인 실패");
-      });
+    signIn(email, password, setAccessToken, setIsOpen);
   }
 
-  // 모달 닫기 함수
   const closeModal = (e) => {
-    // 클릭한 이벤트의 타겟이 오버레이(배경)인지 확인합니다.
     if (e.target === e.currentTarget) {
       setIsOpen(false);
     }
   };
 
-  // 모달 내부 컨텐츠를 클릭해도 모달이 닫히지 않도록
   const handleModalContentClick = (e) => {
     // 모달 내부의 특정 요소를 클릭할 때만 모달 종료
     if (!e.target.classList.contains('custom-close-button')) {
