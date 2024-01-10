@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
+import signUp from '../../Api/signUp';
 
 const SignupModal = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
-  const [birthdate, setBirthdate] = useState('');
+  const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,31 +22,26 @@ const SignupModal = () => {
     e.stopPropagation();
   };
 
-  // 이름 입력값 변경 이벤트 핸들러
   const handleChangeName = (event) => {
     const value = event.target.value;
     setName(value);
   };
 
-  // 성별 입력값 변경 이벤트 핸들러
   const handleChangeGender = (event) => {
     const value = event.target.value;
     setGender(value);
   };
 
-  // 생년월일 입력값 변경 이벤트 핸들러
   const handleChangeBirthdate = (event) => {
     const value = event.target.value;
-    setBirthdate(value);
+    setAge(value);
   };
 
-  // 이메일 입력값 변경 이벤트 핸들러
   const handleChangeEmail = (event) => {
     const value = event.target.value;
     setEmail(value);
   };
 
-  // 비밀번호 입력값 변경 이벤트 핸들러
   const handleChangePassword = (event) => {
     const value = event.target.value;
     setPassword(value);
@@ -53,9 +49,8 @@ const SignupModal = () => {
 
   // 회원가입 버튼 클릭 시 처리
   const handleSignup = () => {
-    // 회원가입 버튼 클릭 시 처리할 로직을 여기에 추가하면 됩니다.
+    signUp(name, email, password, age, gender)
     alert('회원가입 버튼 클릭');
-    setIsOpen(false);
     window.location.reload(); // 현재 페이지 새로 고침
   };
 
