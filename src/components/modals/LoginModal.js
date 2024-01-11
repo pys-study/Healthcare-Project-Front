@@ -21,6 +21,7 @@ const LoginModal = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [accessToken, setAccessToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -29,10 +30,12 @@ const LoginModal = () => {
     } else {
       setIsOpen(true);
     }
+
   }, []); // 빈 배열을 의존성으로 제공하여 컴포넌트 마운트 시에만 실행됩니다.
 
   const handleClickLoginBtn = () => {
-    logIn(email, password, setAccessToken, setIsOpen);
+
+    logIn(email, password, setAccessToken, setRefreshToken, setIsOpen);
   }
 
   const closeModal = (e) => {

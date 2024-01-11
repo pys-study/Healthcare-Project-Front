@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
-import getExerciseRecord from '../../Api/getExerciseRecord';
+import getExercise from '../../Api/getExercise';
 
 const Exercise = () => {
 
@@ -61,8 +61,10 @@ const Exercise = () => {
   };
 
   const test = () => {
-    getExerciseRecord();
+    console.log(addExercise);
   }
+
+
 
   return (
     <div>

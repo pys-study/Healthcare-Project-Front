@@ -39,3 +39,11 @@ export default getExerciseRecord;
 //           "sets": 6,
 //             "totalCalories": 600
 // }
+
+// "exerciseInfo": { id: 2, name: '프론트 스쿼트' }
+//   "recordDate": "2024-01-11",
+//       "weight": 40,
+//         "countPerSets": 30,
+//           "sets": 6,
+//             "totalCalories": 600
+// }

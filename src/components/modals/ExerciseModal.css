@@ -36,44 +36,30 @@
   /* 중앙 정렬 */
   width: 80%;
   /* 전체 너비의 80% */
-
 }
 
+.exercise-list {
+  width: 100%;
+}
 
 .exercise-list-container {
   max-height: 400px;
-  /* Set a maximum height */
+  /* 최대 높이 설정 */
   overflow-y: scroll;
-  /* Enable vertical scrolling */
+  /* 수직 스크롤 활성화 */
   border: 1px solid #ddd;
-  /* Optional: Add a border for better visibility */
+  /* 가시성을 위한 테두리 추가 */
   margin-bottom: 20px;
-  /* Optional: Add some margin at the bottom */
+  /* 아래쪽 여백 추가 */
   margin-top: 20px;
+  /* 위쪽 여백 추가 */
+  width: 100%;
+  /* 컨테이너의 전체 너비 */
 }
 
-.exercise-item {
-  display: flex;
-  /* Flexbox 레이아웃 사용 */
-  align-items: center;
-  /* 세로 중앙 정렬 */
-  margin: 10px 0;
-  /* 상단 및 하단 마진을 같은 길이로 설정 */
-  transition: transform 0.2s;
-  /* 호버 효과에 사용될 트랜지션 */
-}
-
-
-/* 호버 효과 스타일 */
-.exercise-item:hover {
+.exercise-list tr:hover {
   background-color: #e6e6e6;
-}
-
-.exercise-item label {
-  margin-left: 20px;
-  /* 체크박스와 텍스트 사이 간격 */
-  font-size: 20px;
-  /* 적당한 글꼴 크기 */
+  /* 호버 효과 추가 */
 }
 
 .selected-exercises {
@@ -90,10 +76,9 @@
 .selected-exercise {
   display: inline-block;
   /* 인라인 블록 */
-  margin-right: 10px;
-  /* 오른쪽 여백 */
   padding: 3px 7px;
   /* 약간의 패딩 */
+  margin: 5px;
   background-color: #e7e7e7;
   /* 라이트 그레이 배경 */
   border-radius: 3px;

@@ -1,26 +1,16 @@
 // ExerciseModal.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ExerciseModal.css'; // 모달 스타일을 적용할 CSS 파일
-
+import getExercise from '../../Api/getExercise';
 const ExerciseModal = ({ onClose, addExercise }) => {
 
   // 선택한 운동들을 저장하는 변수 selectedExercises / 초기값은 빈 배열이다
   const [selectedExercises, setSelectedExercises] = useState([]);
+  const [exerciseData, setExerciseData] = useState([]);
 
-  // 임시 운동 데이터
-  const exerciseData = [
-    { id: 1, name: '바벨 백스쿼트' },
-    { id: 2, name: '프론트 스쿼트' },
-    { id: 3, name: '벤치프레스' },
-    { id: 4, name: '데드리프트' },
-    { id: 5, name: '오버 헤드 프레스' },
-    { id: 6, name: '사이드 레터럴 레이즈' },
-    { id: 7, name: '힙 쓰러스트' },
-    { id: 8, name: '카프레이즈' },
-    { id: 9, name: '랫풀다운' },
-    { id: 10, name: '암풀다운' },
-    // ... 추가 운동 데이터
-  ];
+  useEffect(() => {
+    getExercise(setExerciseData); // 컴포넌트가 마운트될 때 운동 데이터를 가져옵니다
+  }, []);
 
   // 체크박스 상태를 토글하는 함수
   const toggleExercise = (exerciseId) => {
@@ -44,7 +34,7 @@ const ExerciseModal = ({ onClose, addExercise }) => {
   const handleAddExercises = () => {
     // 선택된 운동 ID들을 기반으로 운동 데이터 찾기
     const selectedExercisesData = selectedExercises.map(id =>
-      exerciseData.find(exercise => exercise.id === id)
+      exerciseData.find(exercise => exercise.exerciseInfoID === id)
     );
 
     // 상위 컴포넌트(Exercise.js)에 선택된 운동들을 전달
@@ -52,42 +42,46 @@ const ExerciseModal = ({ onClose, addExercise }) => {
     onClose(); // 모달 닫기
   };
 
+
   return (
     <div className='exerciseModal'>
       <div className="exercise-modal">
-        {/* 모달 창 닫기 버튼 */}
         <button onClick={onClose} className="close-modal-btn">✖</button>
-        {/* 운동 목록 */}
         <div className="exercise-list-container">
-          <div className="exercise-list">
-            {/* 운동 아이템 반복 */}
-            {exerciseData.map((exercise) => (
-              <div
-                key={exercise.id}
-                className="exercise-item"
-                onClick={() => toggleExercise(exercise.id)}
-              >
-                <input
-                  type="checkbox"
-                  id={`exercise-${exercise.id}`}
-                  checked={selectedExercises.includes(exercise.id)}
-                  onChange={() => toggleExercise(exercise.id)}
-                />
-                <label htmlFor={`exercise-${exercise.id}`}>
-                  {exercise.name}
-                </label>
-              </div>
-            ))}
-          </div>
+          <table className="exercise-list">
+            <thead>
+              <tr>
+                <th>선택</th>
+                <th>운동명</th>
+                <th>운동 부위</th>
+                <th>분당 칼로리</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exerciseData.map((exercise) => (
+                <tr key={exercise.exerciseInfoID} className="exercise-item">
+                  <td>
+                    <input
+                      type="checkbox"
+                      id={`exercise-${exercise.exerciseInfoID}`}
+                      checked={selectedExercises.includes(exercise.exerciseInfoID)}
+                      onChange={() => toggleExercise(exercise.exerciseInfoID)}
+                    />
+                  </td>
+                  <td>{exercise.exerciseName}</td>
+                  <td>{exercise.exerciseType}</td>
+                  <td>{exercise.caloriesPerMinutes} 칼로리/분</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        {/* 선택된 운동 목록 */}
         <div className="selected-exercises">
           {selectedExercises.map((id) => {
-            // 운동 아이디를 기반으로 운동 객체 찾기
-            const exercise = exerciseData.find(e => e.id === id);
+            const exercise = exerciseData.find(e => e.exerciseInfoID === id);
             return (
               <span key={id} className="selected-exercise">
-                {exercise.name} {/* 올바르게 운동 이름 표시 */}
+                {exercise.exerciseName}
                 <button className="remove-exercise-btn" onClick={() => removeExercise(id)}>✖</button>
               </span>
             );
