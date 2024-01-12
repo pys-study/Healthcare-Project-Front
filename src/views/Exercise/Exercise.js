@@ -34,7 +34,7 @@ const Exercise = () => {
       id: exercise.exerciseInfoID,
       name: exercise.exerciseName,
       type: exercise.exerciseType,
-      // 기타 필요한 필드 추가
+      caloriesPerMinute: exercise.caloriesPerMinutes, // 칼로리 정보 추가
     }));
     setExerciseList([...exerciseList, ...exercisesToAdd]);
   };
@@ -63,9 +63,18 @@ const Exercise = () => {
     const totalWeight = weight * sets * reps;
     return isNaN(totalWeight) ? 0 : totalWeight;
   };
+  // 소모 칼로리 계산
+  const calculateCaloriesBurned = (exercise) => {
+    const sets = parseInt(exerciseDetails[exercise.id]?.sets || 0);
+    const reps = parseInt(exerciseDetails[exercise.id]?.reps || 0);
+    const caloriesPerMinute = exercise.caloriesPerMinute;
+    const totalCaloriesBurned = sets * reps * caloriesPerMinute;
+    return isNaN(totalCaloriesBurned) ? 0 : totalCaloriesBurned;
+  };
 
   const test = () => {
-    console.log(addExercise);
+    console.log(exerciseList);
+    console.log(currentDate);
   }
 
 
@@ -89,7 +98,7 @@ const Exercise = () => {
             <span>중량</span>
             <span>세트 수</span>
             <span>횟수</span>
-            <span>총 무게</span>
+            <span>비고</span>
           </div>
           <div id='exerciseList-container'>
             <ul id='exerciseList'>
@@ -130,7 +139,8 @@ const Exercise = () => {
                       <span className="input-unit">회</span>
                     </div>
                     <div>
-                      총 무게: {calculateTotalWeight(exercise)} kg
+                      <span>총 무게: {calculateTotalWeight(exercise)} kg</span>
+                      <span>소모 칼로리: {calculateCaloriesBurned(exercise)} 칼로리</span>
                     </div>
                   </div>
                   <button onClick={() => removeExercise(exercise.id)} className="removeExerciseBtn">X</button>

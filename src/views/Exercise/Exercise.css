@@ -255,6 +255,11 @@ button {
 
 /* ============================================ */
 
+.exercise-inputs span {
+  display: block;
+  /* 필요하다면 추가적인 스타일링 */
+}
+
 
 /* 버튼 컨테이너 스타일 */
 .button-container {
