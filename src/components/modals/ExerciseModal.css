@@ -42,6 +42,11 @@
   width: 100%;
 }
 
+.exercise-list tr {
+  height: 40px;
+  /* 행의 높이 조절 */
+}
+
 .exercise-list-container {
   max-height: 400px;
   /* 최대 높이 설정 */

@@ -59,13 +59,17 @@ const ExerciseModal = ({ onClose, addExercise }) => {
             </thead>
             <tbody>
               {exerciseData.map((exercise) => (
-                <tr key={exercise.exerciseInfoID} className="exercise-item">
+                <tr
+                  key={exercise.exerciseInfoID}
+                  className="exercise-item"
+                  onClick={() => toggleExercise(exercise.exerciseInfoID)}
+                >
                   <td>
                     <input
                       type="checkbox"
                       id={`exercise-${exercise.exerciseInfoID}`}
                       checked={selectedExercises.includes(exercise.exerciseInfoID)}
-                      onChange={() => toggleExercise(exercise.exerciseInfoID)}
+                      onClick={(e) => e.stopPropagation()} // 이벤트 버블링 중단
                     />
                   </td>
                   <td>{exercise.exerciseName}</td>
