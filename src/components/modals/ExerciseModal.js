@@ -69,8 +69,10 @@ const ExerciseModal = ({ onClose, addExercise }) => {
                       type="checkbox"
                       id={`exercise-${exercise.exerciseInfoID}`}
                       checked={selectedExercises.includes(exercise.exerciseInfoID)}
+                      onChange={() => toggleExercise(exercise.exerciseInfoID)}
                       onClick={(e) => e.stopPropagation()} // 이벤트 버블링 중단
                     />
+
                   </td>
                   <td>{exercise.exerciseName}</td>
                   <td>{exercise.exerciseType}</td>

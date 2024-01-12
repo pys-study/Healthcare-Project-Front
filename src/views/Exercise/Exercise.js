@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
-import getExercise from '../../Api/getExercise';
 
 const Exercise = () => {
 
@@ -31,8 +30,13 @@ const Exercise = () => {
   const [exerciseList, setExerciseList] = useState([]);
 
   const addExercise = (selectedExercises) => {
-    // 새로운 운동 목록을 현재 목록에 추가
-    setExerciseList([...exerciseList, ...selectedExercises]);
+    const exercisesToAdd = selectedExercises.map(exercise => ({
+      id: exercise.exerciseInfoID,
+      name: exercise.exerciseName,
+      type: exercise.exerciseType,
+      // 기타 필요한 필드 추가
+    }));
+    setExerciseList([...exerciseList, ...exercisesToAdd]);
   };
 
   const [exerciseDetails, setExerciseDetails] = useState({});
