@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   MDBBtn,
   MDBContainer,
@@ -13,15 +13,19 @@ import {
   from 'mdb-react-ui-kit';
 import SignupModal from './SignupModal';
 import logIn from '../../Api/logIn';
+import { AuthContext } from '../../contexts/AuthContext';
+import Cookies from 'js-cookie';
 
 const LoginModal = () => {
+  const { setAccessToken } = useContext(AuthContext);
+
 
   const [isOpen, setIsOpen] = useState(true);
   const [isSignup, setIsSignup] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [accessToken, setAccessToken] = useState("");
-  const [refreshToken, setRefreshToken] = useState("");
+  //const [accessToken, setAccessToken] = useState("");
+  // const [refreshToken, setRefreshToken] = useState("");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -33,9 +37,19 @@ const LoginModal = () => {
 
   }, []); // 빈 배열을 의존성으로 제공하여 컴포넌트 마운트 시에만 실행됩니다.
 
-  const handleClickLoginBtn = () => {
+  const handleClickLoginBtn = async () => {
 
-    logIn(email, password, setAccessToken, setRefreshToken, setIsOpen);
+    const { accessToken, refreshToken } = await logIn(email, password);
+
+    localStorage.setItem("accessToken", accessToken);
+    Cookies.set('refreshToken', refreshToken, { expires: 14, path: '/' }); // 14일 후 만료
+    alert("로그인 성공");
+
+
+    setAccessToken(accessToken); // 상태 변수에 새로운 토큰 값을 설정
+    // setRefreshToken(refreshToken);
+
+    setIsOpen(false); // 모달 닫기
   }
 
   const closeModal = (e) => {

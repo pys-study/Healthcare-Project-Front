@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './ExerciseModal.css'; // 모달 스타일을 적용할 CSS 파일
 import getExercise from '../../Api/getExercise';
+
 const ExerciseModal = ({ onClose, addExercise }) => {
 
   // 선택한 운동들을 저장하는 변수 selectedExercises / 초기값은 빈 배열이다

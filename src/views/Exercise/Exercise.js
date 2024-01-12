@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Exercise = () => {
+  const { accessToken } = useContext(AuthContext);
 
   // 모달 창의 가시성을 관리하는 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,10 +33,8 @@ const Exercise = () => {
 
   const addExercise = (selectedExercises) => {
     const exercisesToAdd = selectedExercises.map(exercise => ({
-      id: exercise.exerciseInfoID,
-      name: exercise.exerciseName,
-      type: exercise.exerciseType,
-      caloriesPerMinute: exercise.caloriesPerMinutes, // 칼로리 정보 추가
+      ...exercise,
+      id: Date.now() + Math.random(), // 고유 ID 생성
     }));
     setExerciseList([...exerciseList, ...exercisesToAdd]);
   };
@@ -67,14 +67,15 @@ const Exercise = () => {
   const calculateCaloriesBurned = (exercise) => {
     const sets = parseInt(exerciseDetails[exercise.id]?.sets || 0);
     const reps = parseInt(exerciseDetails[exercise.id]?.reps || 0);
-    const caloriesPerMinute = exercise.caloriesPerMinute;
+    const caloriesPerMinute = exercise.caloriesPerMinutes;
     const totalCaloriesBurned = sets * reps * caloriesPerMinute;
     return isNaN(totalCaloriesBurned) ? 0 : totalCaloriesBurned;
   };
 
   const test = () => {
     console.log(exerciseList);
-    console.log(currentDate);
+    console.log(exerciseDetails);
+    console.log(accessToken);
   }
 
 
@@ -106,7 +107,7 @@ const Exercise = () => {
                 <li key={exercise.id}>
                   <div className="exercise-inputs">
                     <div className='exerciseName'>
-                      {exercise.name}
+                      {exercise.exerciseName}
                     </div>
                     <div className="input-group">
                       <input
