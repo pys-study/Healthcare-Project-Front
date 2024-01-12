@@ -4,51 +4,44 @@ import ExerciseModal from '../../components/modals/ExerciseModal';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const Exercise = () => {
-  const { accessToken } = useContext(AuthContext);
+  const today = new Date().toISOString().split('T')[0];
 
-  // 모달 창의 가시성을 관리하는 상태
+  const { accessToken } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // isModalOpen = true => 모달 열어야함
-  // isModalOpen = false => 모달 닫아야함
+  const [currentDate, setCurrentDate] = useState(today)
+  const [exerciseList, setExerciseList] = useState([]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-  // 오늘 날짜를 yyyy-mm-dd 형식으로 가져오기
-  const today = new Date().toISOString().split('T')[0];
-
-  // 오늘 날짜를 상태로 관리
-  const [currentDate, setCurrentDate] = useState(today);
-
-  // 날짜와 요일을 문자열로 결합하는 함수
   const formatDateWithDay = (date) => {
     const dayOfWeek = weekdays[new Date(date).getDay()];
     return `${date} (${dayOfWeek})`;
   };
 
-  // 운동 목록을 상태로 관리하고, addExercise 함수를 통해 이를 업데이트 함
-  const [exerciseList, setExerciseList] = useState([]);
-
-  const addExercise = (selectedExercises) => {
-    const exercisesToAdd = selectedExercises.map(exercise => ({
-      ...exercise,
-      id: Date.now() + Math.random(), // 고유 ID 생성
-    }));
-    setExerciseList([...exerciseList, ...exercisesToAdd]);
+  const addExercise = (selectedExerciseList) => {
+    const newExerciseList = selectedExerciseList.map(e => {
+      e.weight = 0
+      e.sets = 0
+      e.reps = 0
+      e.totalCaloriesBurned = 0
+      e.totalWeight = 0
+      return e
+    })
+    setExerciseList([...exerciseList, ...newExerciseList])
   };
 
-  const [exerciseDetails, setExerciseDetails] = useState({});
+  const handleDetailChange = (index, field, value) => {
+    const newExerciseList = [...exerciseList] // 불변성 
+    const exerciseRow = { ...newExerciseList[index] }
+    exerciseRow[field] = Number(value)
+    exerciseRow.totalCaloriesBurned = Number(exerciseRow.sets) * Number(exerciseRow.reps) * Number(exerciseRow.caloriesPerMinutes)
+    exerciseRow.totalWeight = Number(exerciseRow.weight) * Number(exerciseRow.sets) * Number(exerciseRow.reps);
 
-  const handleDetailChange = (id, field, value) => {
-    setExerciseDetails({
-      ...exerciseDetails,
-      [id]: {
-        ...exerciseDetails[id],
-        [field]: value,
-      },
-    });
+    newExerciseList[index] = exerciseRow
+    setExerciseList(newExerciseList)
   };
 
   const removeExercise = (id) => {
@@ -56,29 +49,26 @@ const Exercise = () => {
   };
 
   // 중량, 세트 수, 횟수를 입력받아 총 무게를 계산하는 함수
-  const calculateTotalWeight = (exercise) => {
-    const weight = parseFloat(exerciseDetails[exercise.id]?.weight || 0);
-    const sets = parseInt(exerciseDetails[exercise.id]?.sets || 0);
-    const reps = parseInt(exerciseDetails[exercise.id]?.reps || 0);
-    const totalWeight = weight * sets * reps;
-    return isNaN(totalWeight) ? 0 : totalWeight;
-  };
-  // 소모 칼로리 계산
-  const calculateCaloriesBurned = (exercise) => {
-    const sets = parseInt(exerciseDetails[exercise.id]?.sets || 0);
-    const reps = parseInt(exerciseDetails[exercise.id]?.reps || 0);
-    const caloriesPerMinute = exercise.caloriesPerMinutes;
-    const totalCaloriesBurned = sets * reps * caloriesPerMinute;
-    return isNaN(totalCaloriesBurned) ? 0 : totalCaloriesBurned;
-  };
+  // const calculateTotalWeight = (exercise) => {
+  //   const weight = parseFloat(exercise.weight);
+  //   const sets = parseInt(exercise.sets);
+  //   const reps = parseInt(exercise.reps);
+  //   const totalWeight = weight * sets * reps;
+  //   return totalWeight;
+  // };
+  // // 소모 칼로리 계산
+  // const calculateCaloriesBurned = (exercise) => {
+  //   const sets = parseInt(exercise.sets);
+  //   const reps = parseInt(exercise.reps);
+  //   const caloriesPerMinute = exercise.caloriesPerMinutes;
+  //   const totalCaloriesBurned = sets * reps * caloriesPerMinute;
+  //   return totalCaloriesBurned;
+  // };
 
   const test = () => {
     console.log(exerciseList);
-    console.log(exerciseDetails);
     console.log(accessToken);
   }
-
-
 
   return (
     <div>
@@ -103,8 +93,8 @@ const Exercise = () => {
           </div>
           <div id='exerciseList-container'>
             <ul id='exerciseList'>
-              {exerciseList.map(exercise => (
-                <li key={exercise.id}>
+              {exerciseList.map((exercise, index) => (
+                <li key={index}>
                   <div className="exercise-inputs">
                     <div className='exerciseName'>
                       {exercise.exerciseName}
@@ -114,8 +104,8 @@ const Exercise = () => {
                         type="number"
                         placeholder="중량"
                         aria-label="중량"
-                        value={exerciseDetails[exercise.id]?.weight || ''}
-                        onChange={(e) => handleDetailChange(exercise.id, 'weight', e.target.value)}
+                        value={exerciseList[index].weight}
+                        onChange={(e) => handleDetailChange(index, 'weight', e.target.value)}
                       />
                       <span className="input-unit">kg</span>
                     </div>
@@ -125,8 +115,8 @@ const Exercise = () => {
                         type="number"
                         placeholder="세트 수"
                         aria-label="세트 수"
-                        value={exerciseDetails[exercise.id]?.sets || ''}
-                        onChange={(e) => handleDetailChange(exercise.id, 'sets', e.target.value)} />
+                        value={exerciseList[index].sets}
+                        onChange={(e) => handleDetailChange(index, 'sets', e.target.value)} />
                       <span className="input-unit">세트</span>
                     </div>
 
@@ -135,16 +125,16 @@ const Exercise = () => {
                         type="number"
                         placeholder="횟수"
                         aria-label="횟수"
-                        value={exerciseDetails[exercise.id]?.reps || ''}
-                        onChange={(e) => handleDetailChange(exercise.id, 'reps', e.target.value)} />
+                        value={exerciseList[index].reps}
+                        onChange={(e) => handleDetailChange(index, 'reps', e.target.value)} />
                       <span className="input-unit">회</span>
                     </div>
                     <div>
-                      <span>총 무게: {calculateTotalWeight(exercise)} kg</span>
-                      <span>소모 칼로리: {calculateCaloriesBurned(exercise)} 칼로리</span>
+                      <span>총 무게: {exercise.totalWeight} kg</span>
+                      <span>소모 칼로리: {exercise.totalCaloriesBurned} 칼로리</span>
                     </div>
                   </div>
-                  <button onClick={() => removeExercise(exercise.id)} className="removeExerciseBtn">X</button>
+                  <button onClick={() => removeExercise(index)} className="removeExerciseBtn">X</button>
                 </li>
               ))}
             </ul>
@@ -159,7 +149,7 @@ const Exercise = () => {
           {/* addExercise 함수를 prop으로 전달 */}
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

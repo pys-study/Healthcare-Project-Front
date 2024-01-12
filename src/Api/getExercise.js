@@ -2,7 +2,6 @@ import { apiClient } from './ApiClient'; // apiClient 임포트
 
 const getExercise = (setExerciseData) => {
 
-  console.log(localStorage.getItem("accessToken"));
   const config = {
     headers: {
       "Authorization": "Bearer " + localStorage.getItem("accessToken")
