@@ -9,4 +9,4 @@
 
 <br>
 
-![image](https://github.com/pys-study/Healthcare-Project-Front/assets/106233376/209b07ec-d535-4d70-b21d-eb6ee648b72b)
+![image](https://github.com/pys-study/Healthcare-Project-Front/assets/106233376/efbb7b64-7392-48f4-8338-bda1e79a1a08)
