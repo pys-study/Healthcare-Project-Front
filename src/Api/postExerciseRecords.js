@@ -1,32 +1,33 @@
 import { apiClient } from './ApiClient'; // apiClient 임포트
 
-const getExerciseRecord = () => {
+const postExerciseRecords = (member, currentDate, exerciseList) => {
+  const requestBody = {
+    member,
+    exerciseInfo: exerciseList.exerciseInfo,
+    recordDate: currentDate,
+    durationMinutes: 0,
+    weight: exerciseList.weight,
+    countPersets: exerciseList.reps,
+    sets: exerciseList.sets,
+    totalCalories: exerciseList.totalCaloiresBurned
+  };
 
-  console.log(localStorage.getItem("accessToken"));
-  const config = {
+  apiClient.post('/exerciseRecords/add', requestBody, {
     headers: {
       "Authorization": "Bearer " + localStorage.getItem("accessToken")
     }
-  }
-
-  return apiClient.get('/exerciseRecords/', config)
+  })
     .then(response => {
       console.log(response);
+      alert("운동 Post 성공");
     })
     .catch(error => {
       console.log(error);
+      alert("운동 Post 실패");
     })
-
 };
 
-export default getExerciseRecord;
-
-
-
-
-
-
-
+export default postExerciseRecords;
 
 // {
 //   "recordId": 2,
@@ -34,14 +35,6 @@ export default getExerciseRecord;
 //   "exerciseInfo": { "caloriesPerMinutes": 100, "exerciseInfoID": 1, "exerciseType": "헬스", "exerciseName": "상체"… },
 //   "recordDate": "2024-01-11",
 //     "durationMinutes": 60,
-//       "weight": 40,
-//         "countPerSets": 30,
-//           "sets": 6,
-//             "totalCalories": 600
-// }
-
-// "exerciseInfo": { id: 2, name: '프론트 스쿼트' }
-//   "recordDate": "2024-01-11",
 //       "weight": 40,
 //         "countPerSets": 30,
 //           "sets": 6,

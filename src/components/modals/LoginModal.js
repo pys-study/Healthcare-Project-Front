@@ -19,7 +19,6 @@ import Cookies from 'js-cookie';
 const LoginModal = () => {
   const { setAccessToken } = useContext(AuthContext);
 
-
   const [isOpen, setIsOpen] = useState(true);
   const [isSignup, setIsSignup] = useState(false)
   const [email, setEmail] = useState("")

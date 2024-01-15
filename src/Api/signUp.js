@@ -1,7 +1,14 @@
 import { apiClient } from './ApiClient'; // apiClient 임포트
 
 const signUp = (name, email, password, age, gender) => {
-  const requestBody = { name, username: email, password, age, gender, email };
+  const requestBody = {
+    name,
+    username: email,
+    password,
+    age,
+    gender,
+    email
+  };
 
   apiClient.post('/members/sign-up', requestBody)
     .then(response => {

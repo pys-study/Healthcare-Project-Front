@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
 import { AuthContext } from '../../contexts/AuthContext';
+import getMember from '../../Api/getMember';
+import postExerciseRecords from '../../Api/postExerciseRecords';
 
 const Exercise = () => {
   const today = new Date().toISOString().split('T')[0];
@@ -23,13 +25,20 @@ const Exercise = () => {
 
   const addExercise = (selectedExerciseList) => {
     const newExerciseList = selectedExerciseList.map(e => {
-      e.weight = 0
-      e.sets = 0
-      e.reps = 0
-      e.totalCaloriesBurned = 0
-      e.totalWeight = 0
-      return e
-    })
+      return {
+        exerciseInfo: {
+          caloriesPerMinutes: e.caloriesPerMinutes,
+          exerciseInfoID: e.exerciseInfoID,
+          exerciseName: e.exerciseName,
+          exerciseType: e.exerciseType
+        },
+        reps: 0,
+        sets: 0,
+        weight: 0,
+        totalCaloriesBurned: 0,
+        totalWeight: 0
+      };
+    });
     setExerciseList([...exerciseList, ...newExerciseList])
   };
 
@@ -37,37 +46,34 @@ const Exercise = () => {
     const newExerciseList = [...exerciseList] // 불변성 
     const exerciseRow = { ...newExerciseList[index] }
     exerciseRow[field] = Number(value)
-    exerciseRow.totalCaloriesBurned = Number(exerciseRow.sets) * Number(exerciseRow.reps) * Number(exerciseRow.caloriesPerMinutes)
+    exerciseRow.totalCaloriesBurned = Number(exerciseRow.sets) * Number(exerciseRow.reps) * Number(exerciseRow.exerciseInfo.caloriesPerMinutes)
     exerciseRow.totalWeight = Number(exerciseRow.weight) * Number(exerciseRow.sets) * Number(exerciseRow.reps);
 
     newExerciseList[index] = exerciseRow
     setExerciseList(newExerciseList)
   };
 
-  const removeExercise = (id) => {
-    setExerciseList(exerciseList.filter(exercise => exercise.id !== id));
+  const removeExercise = (index) => {
+    setExerciseList(exerciseList.filter((_, i) => i !== index));
   };
-
-  // 중량, 세트 수, 횟수를 입력받아 총 무게를 계산하는 함수
-  // const calculateTotalWeight = (exercise) => {
-  //   const weight = parseFloat(exercise.weight);
-  //   const sets = parseInt(exercise.sets);
-  //   const reps = parseInt(exercise.reps);
-  //   const totalWeight = weight * sets * reps;
-  //   return totalWeight;
-  // };
-  // // 소모 칼로리 계산
-  // const calculateCaloriesBurned = (exercise) => {
-  //   const sets = parseInt(exercise.sets);
-  //   const reps = parseInt(exercise.reps);
-  //   const caloriesPerMinute = exercise.caloriesPerMinutes;
-  //   const totalCaloriesBurned = sets * reps * caloriesPerMinute;
-  //   return totalCaloriesBurned;
-  // };
 
   const test = () => {
     console.log(exerciseList);
-    console.log(accessToken);
+    console.log(localStorage.getItem("accessToken"));
+    console.log(currentDate);
+  }
+
+  const handleDateChange = (e) => {
+    const newDate = e.target.value;
+    setCurrentDate(newDate);
+    // 추가적인 동작 수행
+    setCurrentDate(newDate);
+  };
+
+  const save = () => {
+    const member = getMember();
+    console.log(member);
+    postExerciseRecords(member, currentDate, exerciseList);
   }
 
   return (
@@ -77,8 +83,8 @@ const Exercise = () => {
         <input
           type="date"
           id="currentDate"
-          value={currentDate} // 입력 필드의 값으로 상태 사용
-          onChange={(e) => setCurrentDate(e.target.value)} // 날짜 변경 핸들러
+          value={currentDate}
+          onChange={handleDateChange} // 날짜 변경 핸들러 업데이트
         />
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
         <h2>오늘의 운동</h2>
@@ -97,7 +103,7 @@ const Exercise = () => {
                 <li key={index}>
                   <div className="exercise-inputs">
                     <div className='exerciseName'>
-                      {exercise.exerciseName}
+                      {exercise.exerciseInfo.exerciseName}
                     </div>
                     <div className="input-group">
                       <input
@@ -141,8 +147,8 @@ const Exercise = () => {
           </div>
           <div className="button-container">
             <button className="select-button" onClick={openModal}>운동 선택하기</button>
-            <button onClick={test} className="save-button">저장하기</button>
-            <button className="edit-button">수정하기</button>
+            <button onClick={save} className="save-button">저장하기</button>
+            <button onClick={test} className="edit-button">수정하기</button>
           </div>
           {isModalOpen && <ExerciseModal
             onClose={closeModal} addExercise={addExercise} />}
