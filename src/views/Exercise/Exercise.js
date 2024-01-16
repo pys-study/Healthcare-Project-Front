@@ -42,14 +42,13 @@ const Exercise = () => {
           };
         });
         setExerciseList(mappedRecords);
+      } else {
+        setExerciseList([]);
       }
     };
 
     fetchExerciseRecords();
   }, [currentDate]);
-
-
-
 
   const addExercise = (selectedExerciseList) => {
     const newExerciseList = selectedExerciseList.map(e => {
@@ -93,8 +92,6 @@ const Exercise = () => {
 
   const handleDateChange = (e) => {
     const newDate = e.target.value;
-    setCurrentDate(newDate);
-    // 추가적인 동작 수행
     setCurrentDate(newDate);
   };
 
