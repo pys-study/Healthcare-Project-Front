@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
-import { AuthContext } from '../../contexts/AuthContext';
-import getMember from '../../Api/getMember';
+// import { AuthContext } from '../../contexts/AuthContext';
+// import getMember from '../../Api/getMember';
 import postExerciseRecords from '../../Api/postExerciseRecords';
 
 const Exercise = () => {
   const today = new Date().toISOString().split('T')[0];
 
-  const { accessToken } = useContext(AuthContext);
+  // const { accessToken } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(today)
   const [exerciseList, setExerciseList] = useState([]);
@@ -71,9 +71,10 @@ const Exercise = () => {
   };
 
   const save = () => {
-    const member = getMember();
-    console.log(member);
-    postExerciseRecords(member, currentDate, exerciseList);
+    // const member = getMember();
+    // console.log(member);
+    console.log(exerciseList);
+    postExerciseRecords(currentDate, exerciseList);
   }
 
   return (

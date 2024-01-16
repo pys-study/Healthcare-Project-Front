@@ -1,31 +1,35 @@
 import { apiClient } from './ApiClient'; // apiClient 임포트
 
-const postExerciseRecords = (member, currentDate, exerciseList) => {
-  const requestBody = {
-    member,
-    exerciseInfo: exerciseList.exerciseInfo,
+const postExerciseRecords = (currentDate, exerciseList) => {
+  const requestBody = exerciseList.map(exercise => ({
+    exerciseInfo: exercise.exerciseInfo,
     recordDate: currentDate,
     durationMinutes: 0,
-    weight: exerciseList.weight,
-    countPersets: exerciseList.reps,
-    sets: exerciseList.sets,
-    totalCalories: exerciseList.totalCaloiresBurned
-  };
+    weight: exercise.weight,
+    countPerSets: exercise.reps,
+    sets: exercise.sets,
+    totalCalories: exercise.totalCaloriesBurned
+  }));
 
-  apiClient.post('/exerciseRecords/add', requestBody, {
-    headers: {
-      "Authorization": "Bearer " + localStorage.getItem("accessToken")
-    }
-  })
-    .then(response => {
-      console.log(response);
-      alert("운동 Post 성공");
+  // 각 운동 기록에 대해 별도의 POST 요청을 보내고자 한다면
+  requestBody.forEach(exerciseRecord => {
+    apiClient.post('/exerciseRecords/add', exerciseRecord, {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("accessToken")
+      }
     })
-    .catch(error => {
-      console.log(error);
-      alert("운동 Post 실패");
-    })
+      .then(response => {
+        console.log(response);
+        alert("운동 기록 전송 성공");
+      })
+      .catch(error => {
+        console.log(error);
+        alert("운동 기록 전송 실패");
+        console.log(exerciseRecord);
+      });
+  });
 };
+
 
 export default postExerciseRecords;
 
