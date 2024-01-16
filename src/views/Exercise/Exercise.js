@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
+import getExerciseRecords from '../../Api/getExerciseRecords';
 // import { AuthContext } from '../../contexts/AuthContext';
 // import getMember from '../../Api/getMember';
 import postExerciseRecords from '../../Api/postExerciseRecords';
@@ -22,6 +23,33 @@ const Exercise = () => {
     const dayOfWeek = weekdays[new Date(date).getDay()];
     return `${date} (${dayOfWeek})`;
   };
+
+  useEffect(() => {
+    const fetchExerciseRecords = async () => {
+      const records = await getExerciseRecords(currentDate);
+      if (records) {
+        const mappedRecords = records.map(record => {
+          const weight = Number(record.weight) || 0;
+          const sets = Number(record.sets) || 0;
+          const reps = Number(record.countPerSets) || 0;
+          const caloriesPerMinute = record.exerciseInfo?.caloriesPerMinutes || 0;
+
+          return {
+            ...record,
+            reps: reps,
+            totalCaloriesBurned: sets * reps * caloriesPerMinute,
+            totalWeight: weight * sets * reps
+          };
+        });
+        setExerciseList(mappedRecords);
+      }
+    };
+
+    fetchExerciseRecords();
+  }, [currentDate]);
+
+
+
 
   const addExercise = (selectedExerciseList) => {
     const newExerciseList = selectedExerciseList.map(e => {
