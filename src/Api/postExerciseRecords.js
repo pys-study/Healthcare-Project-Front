@@ -11,35 +11,26 @@ const postExerciseRecords = (currentDate, exerciseList) => {
     totalCalories: exercise.totalCaloriesBurned
   }));
 
-  // 각 운동 기록에 대해 별도의 POST 요청을 보내고자 한다면
-  requestBody.forEach(exerciseRecord => {
-    apiClient.post('/exerciseRecords/add', exerciseRecord, {
+  // 모든 요청을 병렬로 실행하기 위한 프로미스 배열 생성
+  const postRequests = requestBody.map(exerciseRecord => {
+    return apiClient.post('/exerciseRecords/add', exerciseRecord, {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("accessToken")
       }
-    })
-      .then(response => {
-        alert("운동 기록 전송 성공");
-      })
-      .catch(error => {
-        console.log(error);
-        alert("운동 기록 전송 실패");
-        console.log(exerciseRecord);
-      });
+    });
   });
+
+  // Promise.all을 사용하여 모든 요청이 완료될 때까지 기다림
+  Promise.all(postRequests)
+    .then(responses => {
+      // 모든 요청이 성공적으로 완료되면 실행됨
+      alert("모든 운동 기록이 성공적으로 전송되었습니다.");
+    })
+    .catch(error => {
+      console.log(error);
+      alert("운동 기록 전송에 실패했습니다.");
+    });
 };
 
 
 export default postExerciseRecords;
-
-// {
-//   "recordId": 2,
-//     "member": { "username": "aaaa", "password": "{bcrypt}$2a$10$LR03jFvj36U444U3X/4DneZo5nP7C91irv5jfocvAriQ/X8T7oNkS", "email": "aab@aa.com",… },
-//   "exerciseInfo": { "caloriesPerMinutes": 100, "exerciseInfoID": 1, "exerciseType": "헬스", "exerciseName": "상체"… },
-//   "recordDate": "2024-01-11",
-//     "durationMinutes": 60,
-//       "weight": 40,
-//         "countPerSets": 30,
-//           "sets": 6,
-//             "totalCalories": 600
-// }
