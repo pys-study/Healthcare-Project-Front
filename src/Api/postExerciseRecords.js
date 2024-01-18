@@ -19,7 +19,6 @@ const postExerciseRecords = (currentDate, exerciseList) => {
       }
     })
       .then(response => {
-        console.log(response);
         alert("운동 기록 전송 성공");
       })
       .catch(error => {

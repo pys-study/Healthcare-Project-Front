@@ -10,7 +10,6 @@ const getExercise = (setExerciseData) => {
 
   return apiClient.get('/exerciseInfo/', config)
     .then(response => {
-      console.log(response.data);
       setExerciseData(response.data);
     })
     .catch(error => {

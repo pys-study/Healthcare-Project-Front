@@ -5,7 +5,7 @@ import getExerciseRecords from '../../Api/getExerciseRecords';
 // import { AuthContext } from '../../contexts/AuthContext';
 // import getMember from '../../Api/getMember';
 import postExerciseRecords from '../../Api/postExerciseRecords';
-
+import DeleteExercise from '../../Api/DeleteExercise';
 const Exercise = () => {
   const today = new Date().toISOString().split('T')[0];
 
@@ -27,6 +27,7 @@ const Exercise = () => {
   useEffect(() => {
     const fetchExerciseRecords = async () => {
       const records = await getExerciseRecords(currentDate);
+      console.log(records);
       if (records) {
         const mappedRecords = records.map(record => {
           const weight = Number(record.weight) || 0;
@@ -63,7 +64,8 @@ const Exercise = () => {
         sets: 0,
         weight: 0,
         totalCaloriesBurned: 0,
-        totalWeight: 0
+        totalWeight: 0,
+        isNew: true, // Add this line
       };
     });
     setExerciseList([...exerciseList, ...newExerciseList])
@@ -80,15 +82,23 @@ const Exercise = () => {
     setExerciseList(newExerciseList)
   };
 
-  const removeExercise = (index) => {
+  const removeExercise = async (index) => {
     setExerciseList(exerciseList.filter((_, i) => i !== index));
-  };
 
-  const test = () => {
-    console.log(exerciseList);
-    console.log(localStorage.getItem("accessToken"));
-    console.log(currentDate);
-  }
+    const exerciseToRemove = exerciseList[index];
+    const recordId = exerciseToRemove.recordId;
+
+    try {
+      // 서버에 삭제 요청을 보내는 함수 호출
+      await DeleteExercise(recordId);
+
+      // 요청이 성공하면 로컬 상태 업데이트
+      setExerciseList(exerciseList.filter((_, i) => i !== index));
+    } catch (error) {
+      // 에러 처리
+      console.error('Exercise 삭제 중 오류 발생:', error);
+    }
+  };
 
   const handleDateChange = (e) => {
     const newDate = e.target.value;
@@ -96,10 +106,15 @@ const Exercise = () => {
   };
 
   const save = () => {
-    // const member = getMember();
-    // console.log(member);
+    const newExercises = exerciseList.filter(exercise => exercise.isNew);
+
+    // Send newExercises to your API
+    postExerciseRecords(currentDate, newExercises);
+
+    // Optionally, update the exerciseList to mark all as not new
+    const updatedExercises = exerciseList.map(exercise => ({ ...exercise, isNew: false }));
+    setExerciseList(updatedExercises);
     console.log(exerciseList);
-    postExerciseRecords(currentDate, exerciseList);
   }
 
   return (
@@ -174,7 +189,7 @@ const Exercise = () => {
           <div className="button-container">
             <button className="select-button" onClick={openModal}>운동 선택하기</button>
             <button onClick={save} className="save-button">저장하기</button>
-            <button onClick={test} className="edit-button">수정하기</button>
+            <button className="edit-button">수정하기</button>
           </div>
           {isModalOpen && <ExerciseModal
             onClose={closeModal} addExercise={addExercise} />}
