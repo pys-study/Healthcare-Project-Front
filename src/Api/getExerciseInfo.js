@@ -1,6 +1,6 @@
 import { apiClient } from './ApiClient'; // apiClient 임포트
 
-const getExercise = (setExerciseData) => {
+const getExerciseInfo = (setExerciseData) => {
 
   const config = {
     headers: {
@@ -18,4 +18,4 @@ const getExercise = (setExerciseData) => {
 
 };
 
-export default getExercise;
+export default getExerciseInfo;

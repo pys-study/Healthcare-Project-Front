@@ -30,41 +30,24 @@
   font-weight: bold;
 }
 
-h2 {
-  font-size: 2rem;
-  /* 강조를 위한 더 큰 글꼴 크기 */
-  color: #27ae60;
-  /* 생기 넘치는 활기찬 색상 */
-  text-transform: uppercase;
-  /* 강조를 위해 모든 글자를 대문자로 변환 */
+.exercise-title {
   text-align: center;
-  /* 제목 가운데 정렬 */
+  font-size: 2rem;
+  color: #27ae60;
   background-color: #f8f9fa;
-  /* 밝은 배경색 */
   margin-top: 20px;
   margin-bottom: 20px;
-  /* 제목 아래 여백 */
   padding: 10px 0;
-  /* 텍스트 주변 여백 설정 */
-  font-weight: bold;
-  /* 강조를 위한 굵은 글꼴 */
   letter-spacing: 2px;
-  /* 글자 사이 간격 늘리기 */
   border-radius: 10px;
-  /* 둥근 모서리 */
   display: inline-block;
-  /* 텍스트 주변에 테두리 밀착 */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  /* 깊이감을 주기 위한 부드러운 그림자 */
   padding: 15px 30px;
-  /* 여백 더하기 */
 }
 
-h2:before {
+.exercise-title:before {
   content: '🏋️‍♂️ ';
-  /* 운동 이모지 */
   font-size: 1.5rem;
-  /* 약간 작은 크기의 이모지 */
 }
 
 /* 모달을 포함한 모든 버튼에 공통 적용 스타일 */

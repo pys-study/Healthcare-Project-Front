@@ -47,10 +47,7 @@ const DailyCalorieChart = () => {
   return (
     <Card>
       <CardBody style={{ textAlign: 'center' }}>
-        <CardTitle tag="h5">오늘의 섭취 칼로리</CardTitle>
-        <CardSubtitle className="text-muted" tag="h6">
-          총 섭취 칼로리: {totalCalories} kcal {/* 총 칼로리 표시 */}
-        </CardSubtitle>
+        <CardTitle tag="h5">총 섭취 칼로리: {totalCalories} kcal</CardTitle>
         <div style={{ display: 'inline-block' }}>
           <Chart
             options={chartOptions.options}

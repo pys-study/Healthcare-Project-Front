@@ -128,7 +128,7 @@ const Exercise = () => {
           onChange={handleDateChange} // 날짜 변경 핸들러 업데이트
         />
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
-        <h2>오늘의 운동</h2>
+        <h2 className='exercise-title'>오늘의 운동</h2>
         <br></br>
         <div id='exercis'>
           <div className="exercise-schema">
@@ -189,7 +189,6 @@ const Exercise = () => {
           <div className="button-container">
             <button className="select-button" onClick={openModal}>운동 선택하기</button>
             <button onClick={save} className="save-button">저장하기</button>
-            <button className="edit-button">수정하기</button>
           </div>
           {isModalOpen && <ExerciseModal
             onClose={closeModal} addExercise={addExercise} />}

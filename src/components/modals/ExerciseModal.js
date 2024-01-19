@@ -1,7 +1,7 @@
 // ExerciseModal.js
 import React, { useEffect, useState } from 'react';
 import './ExerciseModal.css'; // 모달 스타일을 적용할 CSS 파일
-import getExercise from '../../Api/getExercise';
+import getExerciseInfo from '../../Api/getExerciseInfo';
 
 const ExerciseModal = ({ onClose, addExercise }) => {
 
@@ -10,7 +10,7 @@ const ExerciseModal = ({ onClose, addExercise }) => {
   const [exerciseData, setExerciseData] = useState([]);
 
   useEffect(() => {
-    getExercise(setExerciseData); // 컴포넌트가 마운트될 때 운동 데이터를 가져옵니다
+    getExerciseInfo(setExerciseData); // 컴포넌트가 마운트될 때 운동 데이터를 가져옵니다
   }, []);
 
   // 체크박스 상태를 토글하는 함수

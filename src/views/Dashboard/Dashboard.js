@@ -1,52 +1,10 @@
+import React, { useState } from 'react';
 import { Col, Row } from "reactstrap";
 import CaloriesChart from "../../components/dashboards/CalorieChart";
 import CalorieCards from "../../components/dashboards/CalorieCards";
-import Blog from "../../components/dashboards/Blog";
 import ExerciseLogTable from "../../components/dashboards/ExerciseLogTable";
 import ExerciseWeightChart from "../../components/dashboards/ExerciseWeightChart";
 import DailyCalorieChart from "../../components/dashboards/DailyCalorieChart";
-import bg1 from "../../assets/images/bg/bg1.jpg";
-import bg2 from "../../assets/images/bg/bg2.jpg";
-import bg3 from "../../assets/images/bg/bg3.jpg";
-import bg4 from "../../assets/images/bg/bg4.jpg";
-import React, { useState } from 'react';
-import axios from "axios";
-
-
-const BlogData = [
-  {
-    image: bg1,
-    title: "제목",
-    subtitle: "2 댓글, 1 좋아요",
-    description:
-      "본문\n 긴 글도 쓸 수 있어요",
-    btnbg: "primary",
-  },
-  {
-    image: bg2,
-    title: "오운완",
-    subtitle: "2 댓글, 1 좋아요",
-    description:
-      "본문",
-    btnbg: "primary",
-  },
-  {
-    image: bg3,
-    title: "같이 운동하실분",
-    subtitle: "2 댓글, 1 좋아요",
-    description:
-      "본문",
-    btnbg: "primary",
-  },
-  {
-    image: bg4,
-    title: "게시물 제목",
-    subtitle: "2 댓글, 1 좋아요",
-    description:
-      "본문",
-    btnbg: "primary",
-  },
-];
 
 const Dashboard = () => {
 
@@ -81,7 +39,7 @@ const Dashboard = () => {
   return (
     <div>
       <h1 style={inlineStyle}>{formatDateWithDay(currentDate)}</h1>
-      <h4>오늘 섭취한 칼로리</h4>
+      <h2 style={{ marginTop: '30px', marginBottom: '10px', textAlign: 'center' }}>섭취한 칼로리</h2>
       {/***Top Cards***/}
       <Row>
         <Col sm="6" lg="3">
@@ -128,36 +86,26 @@ const Dashboard = () => {
           <DailyCalorieChart />
         </Col>
       </Row>
-      {/***주간 섭취 칼로리***/}
       <Row>
+        <Col lg="7" xxl="12" md="12">
+          <h2 style={{ marginTop: '30px', marginBottom: '10px', textAlign: 'center' }}>오늘의 운동</h2>
+          <ExerciseLogTable />
+        </Col>
+      </Row>
+      {/***주간 섭취 칼로리***/}
+      <Row style={{ marginTop: '30px' }}>
         <Col xxl="12">
           <CaloriesChart />
         </Col>
       </Row>
       {/***ExerciseLogTalbe ***/}
       <Row>
-        <Col lg="7" xxl="12" md="12">
-          <h3 style={{ textAlign: 'center' }}>오늘의 운동</h3>
-          <ExerciseLogTable />
-        </Col>
         <Col md="12" lg="5" xxl="12">
           <ExerciseWeightChart />
         </Col>
       </Row>
-      {/***Blog Cards***/}
-      <Row>
-        {BlogData.map((blg, index) => (
-          <Col sm="6" lg="6" xl="3" key={index}>
-            <Blog
-              image={blg.image}
-              title={blg.title}
-              subtitle={blg.subtitle}
-              text={blg.description}
-              color={blg.btnbg}
-            />
-          </Col>
-        ))}
-      </Row>
+
+
     </div >
   );
 };

@@ -62,27 +62,11 @@ const Header = () => {
 
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
-          <NavItem>
-            <Link to="/starter" className="nav-link">
-              Home
-            </Link>
-          </NavItem>
           {/* <NavItem>
             <Link to="/about" className="nav-link">
               About
             </Link>
           </NavItem> */}
-          <UncontrolledDropdown inNavbar nav>
-            <DropdownToggle caret nav>
-              미정
-            </DropdownToggle>
-            <DropdownMenu end>
-              <DropdownItem>미정 1</DropdownItem>
-              <DropdownItem>미정 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>미정 3</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
         </Nav>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="dark">
