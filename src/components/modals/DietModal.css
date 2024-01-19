@@ -8,8 +8,8 @@
   /* 테두리 둥글게 설정 */
   width: 50%;
   /* 모달의 너비를 부모의 절반으로 설정 */
-  width: 700px;
-  /* 모달의 최대 너비를 600px로 제한 */
+  width: 1200px;
+  height: 900px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   /* 그림자 효과 추가 */
 }
@@ -97,7 +97,7 @@
 }
 
 .food-list-container {
-  max-height: 500px;
+  height: 800px;
   /* 최대 높이 설정 */
   overflow-y: scroll;
   /* 수직 스크롤 활성화 */
@@ -113,17 +113,29 @@
 
 .food-table th,
 .food-table td {
-  text-align: left;
+  text-align: center;
   padding: 8px;
+
 }
 
 .food-table thead th {
   position: sticky;
   top: 0;
   z-index: 100;
-  /* Ensures the header is above other content */
   background-color: #f2f2f2;
-  /* Keep the background to maintain readability */
+  width: 120px;
+  /* 각 열의 너비를 120px로 설정 */
+  min-width: 120px;
+  /* 최소 너비를 120px로 설정 */
+  max-width: 120px;
+  /* 최대 너비를 120px로 설정 */
+  text-overflow: ellipsis;
+  /* 텍스트가 넘칠 경우 말줄임표로 처리 */
+  white-space: nowrap;
+  /* 줄바꿈 방지 */
+  overflow: hidden;
+  /* 내용이 넘칠 경우 숨김 처리 */
+  padding: 8px;
 }
 
 .food-table tbody tr {
