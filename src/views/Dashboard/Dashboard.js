@@ -1,23 +1,17 @@
-import React, { useState } from 'react';
+import { React } from 'react';
 import { Col, Row } from "reactstrap";
 import CaloriesChart from "../../components/dashboards/CalorieChart";
 import CalorieCards from "../../components/dashboards/CalorieCards";
 import ExerciseLogTable from "../../components/dashboards/ExerciseLogTable";
 import ExerciseWeightChart from "../../components/dashboards/ExerciseWeightChart";
 import DailyCalorieChart from "../../components/dashboards/DailyCalorieChart";
-
+import { useCurrentDate } from '../../contexts/CurrentDateContext';
 const Dashboard = () => {
-
 
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-  // 오늘 날짜를 yyyy-mm-dd 형식으로 가져오기
-  const today = new Date().toISOString().split('T')[0];
+  const { currentDate } = useCurrentDate();
 
-  // 오늘 날짜를 상태로 관리
-  const [currentDate, setCurrentDate] = useState(today);
-
-  // 날짜와 요일을 문자열로 결합하는 함수
   const formatDateWithDay = (date) => {
     const dayOfWeek = weekdays[new Date(date).getDay()];
     return `${date} (${dayOfWeek})`;

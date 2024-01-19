@@ -1,34 +1,29 @@
 import React, { useState } from 'react';
 import './Diet.css';
 import DietModal from '../../components/modals/DietModal';
+import { useCurrentDate } from '../../contexts/CurrentDateContext';
 
 const Diet = () => {
-  // 모달 창의 가시성을 관리하는 상태
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   // isModalOpen = true => 모달 열어야함
   // isModalOpen = false => 모달 닫아야함
 
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-  // 오늘 날짜를 yyyy-mm-dd 형식으로 가져오기
-  const today = new Date().toISOString().split('T')[0];
-
   // 오늘 날짜를 상태로 관리
-  const [currentDate, setCurrentDate] = useState(today);
+  const { currentDate, setCurrentDate } = useCurrentDate();
 
-  // 날짜와 요일을 문자열로 결합하는 함수
   const formatDateWithDay = (date) => {
     const dayOfWeek = weekdays[new Date(date).getDay()];
     return `${date} (${dayOfWeek})`;
   };
 
-  // 모달을 여는 함수, 선택된 식사 시간을 설정
   const openModal = (mealType) => {
     setSelectedMeal(mealType);
     setIsModalOpen(true);
   };
 
-  // 모달을 닫는 함수
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -43,7 +38,7 @@ const Diet = () => {
     dinner: []
   });
 
-  // Immutable.js
+  // Immutable.js 불변성 주의
   // 선택된 식사 시간에 음식을 추가하는 함수
   const addFoodToMeal = (foodItem) => {
     setMeals((prevMeals) => ({ // 이전 meals의 상태 prevMeals를 인자로 받아옴
@@ -67,7 +62,6 @@ const Diet = () => {
 
   };
 
-  // 식사 목록을 렌더링하는 함수
   const renderMealList = (mealType) => {
     return (
       <table className="meal-table">
@@ -146,30 +140,3 @@ const Diet = () => {
 
 export default Diet;
 
-
-
-// [
-//     {
-//       member: {
-//         name:'고길동',
-//         id : "aaa",
-//         password : '123',
-//         gender : '남',
-//         email : 'aaa@aa.com',
-//         age : 32
-//       },
-//       dietInfo : {
-//         dietInfoId: 1,
-//         caloreis : 50,
-//         dietName : "달걀",
-//         carbohydrate : 50,
-//         protein : 50,
-//         fats : 50
-//       },
-//       dietRecordId : 1,
-//       record : "2024-01-02",
-//       totalCalories:50,
-//       timeOfMeal:"점심"
-//     }
-// ]
-//

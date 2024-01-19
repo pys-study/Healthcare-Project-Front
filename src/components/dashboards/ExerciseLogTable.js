@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import getExerciseRecords from '../../Api/getExerciseRecords';
+import { useCurrentDate } from '../../contexts/CurrentDateContext';
 
 const ExerciseLogTable = () => {
   const [exerciseRecords, setExerciseRecords] = useState([]);
+  const { currentDate } = useCurrentDate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getExerciseRecords('2024-01-19');
+      const data = await getExerciseRecords(currentDate);
       console.log(data);
       if (data) {
         setExerciseRecords(data);

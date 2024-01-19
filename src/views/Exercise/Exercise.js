@@ -2,18 +2,18 @@ import React, { useState, useEffect, useContext, useCallback } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
 import getExerciseRecords from '../../Api/getExerciseRecords';
+import { useCurrentDate } from '../../contexts/CurrentDateContext';
 // import { AuthContext } from '../../contexts/AuthContext';
 // import getMember from '../../Api/getMember';
 import postExerciseRecords from '../../Api/postExerciseRecords';
 import DeleteExercise from '../../Api/DeleteExercise';
 
 const Exercise = () => {
-  const today = new Date().toISOString().split('T')[0];
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
   // const { accessToken } = useContext(AuthContext);
+  const { currentDate, setCurrentDate } = useCurrentDate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentDate, setCurrentDate] = useState(today)
   const [exerciseList, setExerciseList] = useState([]);
   const [totals, setTotals] = useState({ totalWeightSum: 0, totalCaloriesSum: 0 });
 
