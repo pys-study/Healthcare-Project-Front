@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 import './Exercise.css'
 import ExerciseModal from '../../components/modals/ExerciseModal';
 import getExerciseRecords from '../../Api/getExerciseRecords';
@@ -6,22 +6,28 @@ import getExerciseRecords from '../../Api/getExerciseRecords';
 // import getMember from '../../Api/getMember';
 import postExerciseRecords from '../../Api/postExerciseRecords';
 import DeleteExercise from '../../Api/DeleteExercise';
+
 const Exercise = () => {
   const today = new Date().toISOString().split('T')[0];
+  const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
   // const { accessToken } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(today)
   const [exerciseList, setExerciseList] = useState([]);
+  const [totals, setTotals] = useState({ totalWeightSum: 0, totalCaloriesSum: 0 });
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-
   const formatDateWithDay = (date) => {
     const dayOfWeek = weekdays[new Date(date).getDay()];
     return `${date} (${dayOfWeek})`;
+  };
+
+  const handleDateChange = (e) => {
+    const newDate = e.target.value;
+    setCurrentDate(newDate);
   };
 
   useEffect(() => {
@@ -47,9 +53,24 @@ const Exercise = () => {
         setExerciseList([]);
       }
     };
-
     fetchExerciseRecords();
   }, [currentDate]);
+
+  useEffect(() => {
+    const newTotals = calculateTotals();
+    setTotals(newTotals);
+  }, [exerciseList]);
+
+  const handleDetailChange = (index, field, value) => {
+    const newExerciseList = [...exerciseList] // 불변성 
+    const exerciseRow = { ...newExerciseList[index] }
+    exerciseRow[field] = Number(value)
+    exerciseRow.totalCaloriesBurned = Number(exerciseRow.sets) * Number(exerciseRow.reps) * Number(exerciseRow.exerciseInfo.caloriesPerMinutes)
+    exerciseRow.totalWeight = Number(exerciseRow.weight) * Number(exerciseRow.sets) * Number(exerciseRow.reps);
+
+    newExerciseList[index] = exerciseRow
+    setExerciseList(newExerciseList)
+  };
 
   const addExercise = (selectedExerciseList) => {
     const newExerciseList = selectedExerciseList.map(e => {
@@ -71,51 +92,34 @@ const Exercise = () => {
     setExerciseList([...exerciseList, ...newExerciseList])
   };
 
-  const handleDetailChange = (index, field, value) => {
-    const newExerciseList = [...exerciseList] // 불변성 
-    const exerciseRow = { ...newExerciseList[index] }
-    exerciseRow[field] = Number(value)
-    exerciseRow.totalCaloriesBurned = Number(exerciseRow.sets) * Number(exerciseRow.reps) * Number(exerciseRow.exerciseInfo.caloriesPerMinutes)
-    exerciseRow.totalWeight = Number(exerciseRow.weight) * Number(exerciseRow.sets) * Number(exerciseRow.reps);
-
-    newExerciseList[index] = exerciseRow
-    setExerciseList(newExerciseList)
-  };
-
   const removeExercise = async (index) => {
     setExerciseList(exerciseList.filter((_, i) => i !== index));
 
     const exerciseToRemove = exerciseList[index];
     const recordId = exerciseToRemove.recordId;
-
     try {
-      // 서버에 삭제 요청을 보내는 함수 호출
       await DeleteExercise(recordId);
-
-      // 요청이 성공하면 로컬 상태 업데이트
       setExerciseList(exerciseList.filter((_, i) => i !== index));
     } catch (error) {
-      // 에러 처리
       console.error('Exercise 삭제 중 오류 발생:', error);
     }
   };
 
-  const handleDateChange = (e) => {
-    const newDate = e.target.value;
-    setCurrentDate(newDate);
-  };
-
   const save = () => {
     const newExercises = exerciseList.filter(exercise => exercise.isNew);
-
-    // Send newExercises to your API
     postExerciseRecords(currentDate, newExercises);
 
-    // Optionally, update the exerciseList to mark all as not new
     const updatedExercises = exerciseList.map(exercise => ({ ...exercise, isNew: false }));
     setExerciseList(updatedExercises);
     console.log(exerciseList);
   }
+
+  const calculateTotals = useCallback(() => {
+    const totalWeightSum = exerciseList.reduce((sum, exercise) => sum + exercise.totalWeight, 0);
+    const totalCaloriesSum = exerciseList.reduce((sum, exercise) => sum + exercise.totalCaloriesBurned, 0);
+
+    return { totalWeightSum, totalCaloriesSum };
+  }, [exerciseList]);
 
   return (
     <div>
@@ -130,6 +134,11 @@ const Exercise = () => {
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
         <h2 className='exercise-title'>오늘의 운동</h2>
         <br></br>
+        <div className="totals-display">
+          <span>총 무게 합계: {totals.totalWeightSum} kg</span>
+          <br></br>
+          <span>총 소모 칼로리 합계: {totals.totalCaloriesSum} Kcal</span>
+        </div>
         <div id='exercis'>
           <div className="exercise-schema">
             <span>운동</span>
@@ -190,6 +199,7 @@ const Exercise = () => {
             <button className="select-button" onClick={openModal}>운동 선택하기</button>
             <button onClick={save} className="save-button">저장하기</button>
           </div>
+
           {isModalOpen && <ExerciseModal
             onClose={closeModal} addExercise={addExercise} />}
           {/* addExercise 함수를 prop으로 전달 */}
