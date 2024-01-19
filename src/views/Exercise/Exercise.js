@@ -62,14 +62,21 @@ const Exercise = () => {
   }, [exerciseList]);
 
   const handleDetailChange = (index, field, value) => {
-    const newExerciseList = [...exerciseList] // 불변성 
-    const exerciseRow = { ...newExerciseList[index] }
-    exerciseRow[field] = Number(value)
-    exerciseRow.totalCaloriesBurned = Number(exerciseRow.sets) * Number(exerciseRow.reps) * Number(exerciseRow.exerciseInfo.caloriesPerMinutes)
-    exerciseRow.totalWeight = Number(exerciseRow.weight) * Number(exerciseRow.sets) * Number(exerciseRow.reps);
+    const newExerciseList = [...exerciseList];
+    const exerciseRow = { ...newExerciseList[index] };
 
-    newExerciseList[index] = exerciseRow
-    setExerciseList(newExerciseList)
+    exerciseRow[field] = Number(value);
+
+    // 중량에 따른 칼로리 계산
+    const weight = field === 'weight' ? Number(value) : exerciseRow.weight;
+    const weightFactor = 0.1; // 중량 계수
+    const baseCalories = exerciseRow.exerciseInfo.caloriesPerMinutes;
+    exerciseRow.totalCaloriesBurned = Math.round((baseCalories + (weight * weightFactor)) * exerciseRow.sets * exerciseRow.reps);
+
+    exerciseRow.totalWeight = weight * exerciseRow.sets * exerciseRow.reps;
+
+    newExerciseList[index] = exerciseRow;
+    setExerciseList(newExerciseList);
   };
 
   const addExercise = (selectedExerciseList) => {
@@ -116,8 +123,7 @@ const Exercise = () => {
 
   const calculateTotals = useCallback(() => {
     const totalWeightSum = exerciseList.reduce((sum, exercise) => sum + exercise.totalWeight, 0);
-    const totalCaloriesSum = exerciseList.reduce((sum, exercise) => sum + exercise.totalCaloriesBurned, 0);
-
+    const totalCaloriesSum = Math.round(exerciseList.reduce((sum, exercise) => sum + exercise.totalCaloriesBurned, 0));
     return { totalWeightSum, totalCaloriesSum };
   }, [exerciseList]);
 
@@ -133,11 +139,10 @@ const Exercise = () => {
         />
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
         <h2 className='exercise-title'>오늘의 운동</h2>
-        <br></br>
         <div className="totals-display">
-          <span>총 무게 합계: {totals.totalWeightSum} kg</span>
+          <span>총 무게 : {totals.totalWeightSum} kg</span>
           <br></br>
-          <span>총 소모 칼로리 합계: {totals.totalCaloriesSum} Kcal</span>
+          <span>총 소모 칼로리 : {totals.totalCaloriesSum} Kcal</span>
         </div>
         <div id='exercis'>
           <div className="exercise-schema">
@@ -186,8 +191,8 @@ const Exercise = () => {
                       <span className="input-unit">회</span>
                     </div>
                     <div>
-                      <span>총 무게: {exercise.totalWeight} kg</span>
-                      <span>소모 칼로리: {exercise.totalCaloriesBurned} 칼로리</span>
+                      <span>무게: {exercise.totalWeight} kg</span>
+                      <span>소모 칼로리: {exercise.totalCaloriesBurned} Kcal</span>
                     </div>
                   </div>
                   <button onClick={() => removeExercise(index)} className="removeExerciseBtn">X</button>
