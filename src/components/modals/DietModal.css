@@ -8,7 +8,7 @@
   /* 테두리 둥글게 설정 */
   width: 50%;
   /* 모달의 너비를 부모의 절반으로 설정 */
-  max-width: 600px;
+  width: 700px;
   /* 모달의 최대 너비를 600px로 제한 */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   /* 그림자 효과 추가 */
@@ -92,27 +92,23 @@
   /* 호버 시 버튼 색상을 어둡게 변경 */
 }
 
-.food-table thead,
-.food-table tbody {
-  display: block;
-  width: 100%;
-}
-
-.food-table thead {
-  width: calc(100% - 1em);
-  /* Adjust width to account for scrollbar */
-}
-
-.food-table tbody {
-  max-height: 500px;
-  /* 원하는 높이로 설정 */
-  overflow-y: scroll;
-}
-
-
 .food-table {
   width: 100%;
-  border-collapse: collapse;
+}
+
+.food-list-container {
+  max-height: 500px;
+  /* 최대 높이 설정 */
+  overflow-y: scroll;
+  /* 수직 스크롤 활성화 */
+  border: 1px solid #ddd;
+  /* 가시성을 위한 테두리 추가 */
+  margin-bottom: 20px;
+  /* 아래쪽 여백 추가 */
+  margin-top: 20px;
+  /* 위쪽 여백 추가 */
+  width: 100%;
+  /* 컨테이너의 전체 너비 */
 }
 
 .food-table th,
@@ -121,8 +117,13 @@
   padding: 8px;
 }
 
-.food-table th {
+.food-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Ensures the header is above other content */
   background-color: #f2f2f2;
+  /* Keep the background to maintain readability */
 }
 
 .food-table tbody tr {

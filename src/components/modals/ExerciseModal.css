@@ -42,6 +42,13 @@
   width: 100%;
 }
 
+.exercise-list thead th {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #f2f2f2;
+}
+
 .exercise-list tr {
   height: 40px;
   /* 행의 높이 조절 */
