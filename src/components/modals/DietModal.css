@@ -37,7 +37,7 @@
 
 /* 닫기 버튼 스타일 */
 .close {
-  float: right;
+  text-align: right;
   /* 닫기 버튼을 오른쪽으로 정렬 */
   font-size: 1.5rem;
   /* 닫기 아이콘의 크기 설정 */
@@ -163,9 +163,4 @@
 .modal-actions button:nth-child(1):hover {
   background-color: #5a6268;
   /* 호버 시 취소 버튼의 색상을 어둡게 변경 */
-}
-
-/* API에서 가져온 음식 목록에 대한 추가 스타일 */
-#foodList {
-  /* API 음식 목록에 대한 커스텀 스타일을 위한 자리 표시자 */
 }

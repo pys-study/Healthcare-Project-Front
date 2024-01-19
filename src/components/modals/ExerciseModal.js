@@ -8,6 +8,8 @@ const ExerciseModal = ({ onClose, addExercise }) => {
   // 선택한 운동들을 저장하는 변수 selectedExercises / 초기값은 빈 배열이다
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [exerciseData, setExerciseData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
+
 
   useEffect(() => {
     getExerciseInfo(setExerciseData); // 컴포넌트가 마운트될 때 운동 데이터를 가져옵니다
@@ -43,11 +45,22 @@ const ExerciseModal = ({ onClose, addExercise }) => {
     onClose(); // 모달 닫기
   };
 
+  const filteredExerciseData = exerciseData.filter(exercise =>
+    exercise.exerciseName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
 
   return (
     <div className='exerciseModal'>
       <div className="exercise-modal">
         <button onClick={onClose} className="close-modal-btn">✖</button>
+        <input
+          type="text"
+          placeholder="운동 이름으로 검색"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
         <div className="exercise-list-container">
           <table className="exercise-list">
             <thead>
@@ -59,7 +72,7 @@ const ExerciseModal = ({ onClose, addExercise }) => {
               </tr>
             </thead>
             <tbody>
-              {exerciseData.map((exercise) => (
+              {filteredExerciseData.map((exercise) => (
                 <tr
                   key={exercise.exerciseInfoID}
                   className="exercise-item"
