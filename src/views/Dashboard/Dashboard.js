@@ -73,9 +73,9 @@ const Dashboard = () => {
     margin: '20px 0', // 마진: 위아래로 20px, 좌우로 0
     padding: '10px 0', // 패딩: 위아래로 10px, 좌우로 0
     borderBottom: '2px solid #3498db', // 하단 테두리: 2px 두께, 실선, 파란색 계열
-    backgroundColor: '#ecf0f1', // 배경 색상: 옅은 회색/파란색 계열
+    backgroundColor: '#d4edda', // 배경 색상: 옅은 회색/파란색 계열
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // 그림자: x축 0, y축 4px, 흐림 6px, 색상 검은색의 10% 투명도
-    borderRadius: '5px' // 테두리 둥글기: 모든 모서리를 5px의 반경으로 둥글게 설정
+    borderRadius: '5px', // 테두리 둥글기: 모든 모서리를 5px의 반경으로 둥글게 설정    
   };
 
   return (

@@ -44,11 +44,11 @@ const LoginModal = () => {
     Cookies.set('refreshToken', refreshToken, { expires: 14, path: '/' }); // 14일 후 만료
     alert("로그인 성공");
 
-
     setAccessToken(accessToken); // 상태 변수에 새로운 토큰 값을 설정
-    // setRefreshToken(refreshToken);
 
     setIsOpen(false); // 모달 닫기
+    window.location.reload(); // 현재 페이지 새로 고침
+
   }
 
   const closeModal = (e) => {
