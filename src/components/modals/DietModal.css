@@ -92,6 +92,24 @@
   /* 호버 시 버튼 색상을 어둡게 변경 */
 }
 
+.food-table thead,
+.food-table tbody {
+  display: block;
+  width: 100%;
+}
+
+.food-table thead {
+  width: calc(100% - 1em);
+  /* Adjust width to account for scrollbar */
+}
+
+.food-table tbody {
+  max-height: 500px;
+  /* 원하는 높이로 설정 */
+  overflow-y: scroll;
+}
+
+
 .food-table {
   width: 100%;
   border-collapse: collapse;

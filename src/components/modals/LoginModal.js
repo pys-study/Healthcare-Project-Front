@@ -104,7 +104,7 @@ const LoginModal = () => {
                   onClick={handleModalContentClick} // 모달 내부 컨텐츠 클릭 이벤트 핸들러
                 >
                   <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
-                    <h3 className="fw-bold mb-2 text-uppercase">로그인</h3>
+                    <h2 className="fw-bold mb-2 text-uppercase">로그인</h2>
                     <p className="text-white-50 mb-5">이메일과 비밀번호를 입력해주세요</p>
 
                     <MDBInput onChange={handleChangeId} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='이메일' id='emailInput' type='email' size="lg" />

@@ -84,11 +84,11 @@ const Diet = () => {
         <tbody>
           {meals[mealType].map((foodItem, index) => (
             <tr key={index}>
-              <td>{foodItem.name}</td>
+              <td>{foodItem.dietName}</td>
               <td>{foodItem.calories} kcal</td>
-              <td>{foodItem.carbs} g</td>
+              <td>{foodItem.carbohydrate} g</td>
               <td>{foodItem.protein} g</td>
-              <td>{foodItem.fat} g</td>
+              <td>{foodItem.fats} g</td>
               <td>
                 <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, index)}>x</button>
               </td>

@@ -1,32 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './DietModal.css';
+import getDietInfo from '../../Api/getDietInfo';
 
 const DietModal = ({ isModalOpen, closeModal, addFoodToMeal }) => {
 
   const [foodItems, setFoodItems] = useState([]);
 
-
   useEffect(() => {
-    // 공공 데이터 API로부터 식품 정보를 가져오는 함수를 여기에 구현합니다.
-    // 예시로 더미 데이터를 사용했습니다.
     const fetchFoodItems = async () => {
-
-
-
-      // 가정으로 API 호출 대신 더미 데이터를 사용합니다.
-      const dummyFoodItems = [
-        { id: 1, name: '사과', calories: 52, carbs: 14, protein: 0.3, fat: 0.2 },
-        { id: 2, name: '닭가슴살', calories: 165, carbs: 20, protein: 31, fat: 3.6 },
-        { id: 3, name: '우둔살', calories: 250, carbs: 30, protein: 20, fat: 20 },
-      ];
-      setFoodItems(dummyFoodItems);
-
-
-
-      // 실제로는 아래와 같이 API를 호출하게 됩니다.
-      // const response = await fetch('API_ENDPOINT');
-      // const data = await response.json();
-      // setFoodItems(data);
+      getDietInfo(setFoodItems)
     };
     if (isModalOpen) {
       fetchFoodItems();
@@ -51,11 +33,11 @@ const DietModal = ({ isModalOpen, closeModal, addFoodToMeal }) => {
             <tbody>
               {foodItems.map((item) => (
                 <tr key={item.id} onDoubleClick={() => addFoodToMeal(item)}>
-                  <td>{item.name}</td>
+                  <td>{item.dietName}</td>
                   <td>{item.calories}</td>
                   <td>{item.carbs}g</td>
                   <td>{item.protein}g</td>
-                  <td>{item.fat}g</td>
+                  <td>{item.fats}g</td>
                 </tr>
               ))}
             </tbody>
