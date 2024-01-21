@@ -50,10 +50,10 @@ const Diet = () => {
   };
 
   // 선택된 식사 시간에서 특정 음식을 제거하는 함수
-  const removeFoodFromMeal = (mealType, index) => {
+  const removeFoodFromMeal = (mealType, dietInfoId) => {
     // 해당 식사 시간의 배열에서 index에 해당하는 아이템을 제거
     setMeals((prevMeals) => {
-      const filteredMeals = prevMeals[mealType].filter((_, i) => i !== index);
+      const filteredMeals = prevMeals[mealType].filter((_, i) => i !== dietInfoId);
       return {
         ...prevMeals,
         [mealType]: filteredMeals
@@ -76,15 +76,15 @@ const Diet = () => {
           </tr>
         </thead>
         <tbody>
-          {meals[mealType].map((foodItem, index) => (
-            <tr key={index}>
+          {meals[mealType].map((foodItem, dietInfoId) => (
+            <tr key={foodItem.dietInfoId}>
               <td>{foodItem.dietName}</td>
               <td>{foodItem.calories} kcal</td>
               <td>{foodItem.carbohydrate} g</td>
               <td>{foodItem.protein} g</td>
               <td>{foodItem.fats} g</td>
               <td>
-                <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, index)}>x</button>
+                <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, dietInfoId)}>x</button>
               </td>
             </tr>
           ))}
