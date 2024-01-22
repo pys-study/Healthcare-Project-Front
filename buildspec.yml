@@ -15,7 +15,7 @@ phases:
       - cat ./.env
       - echo 'server {' >> ./nginx.conf
       - echo '    listen 80;' >> ./nginx.conf
-      - echo "    server_name api.healthcare-hwp.com;" >> ./nginx.conf
+      - echo '    server_name api.healthcare-hwp.com;' >> ./nginx.conf
       - echo '    location / {' >> ./nginx.conf
       - echo "        proxy_pass $BACKEND_ELB_ENDPOINT;" >> ./nginx.conf
       - echo '    }' >> ./nginx.conf
