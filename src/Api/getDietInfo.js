@@ -10,7 +10,6 @@ const getDietInfo = (setFoodItems) => {
 
   return apiClient.get('/dietInfo/', config)
     .then(response => {
-      console.log(response.data);
       setFoodItems(response.data);
     })
     .catch(error => {

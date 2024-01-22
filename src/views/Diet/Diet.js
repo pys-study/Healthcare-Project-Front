@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Diet.css';
 import DietModal from '../../components/modals/DietModal';
 import { useCurrentDate } from '../../contexts/CurrentDateContext';
+import postDietRecords from '../../Api/postDietRecords';
+import getDietRecords from '../../Api/getDietRecords';
 
 const Diet = () => {
 
@@ -11,8 +13,9 @@ const Diet = () => {
 
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-  // 오늘 날짜를 상태로 관리
   const { currentDate, setCurrentDate } = useCurrentDate();
+  // 현재 선택된 식사 시간을 저장하는 상태 ('breakfast', 'lunch', 'dinner')
+  const [selectedMeal, setSelectedMeal] = useState('');
 
   const formatDateWithDay = (date) => {
     const dayOfWeek = weekdays[new Date(date).getDay()];
@@ -28,8 +31,26 @@ const Diet = () => {
     setIsModalOpen(false);
   };
 
-  // 현재 선택된 식사 시간을 저장하는 상태 ('breakfast', 'lunch', 'dinner')
-  const [selectedMeal, setSelectedMeal] = useState('');
+  useEffect(() => {
+    const fetchDietRecords = async () => {
+      try {
+        const records = await getDietRecords(currentDate);
+        if (records) {
+          // 각 식사 시간에 따라 meals 상태 업데이트
+          setMeals({
+            breakfast: records.filter(record => record.timeOfMeal === 'breakfast').map(record => record.dietInfo),
+            lunch: records.filter(record => record.timeOfMeal === 'lunch').map(record => record.dietInfo),
+            dinner: records.filter(record => record.timeOfMeal === 'dinner').map(record => record.dietInfo),
+          });
+        }
+      } catch (error) {
+        console.error('식단 기록 불러오기 오류:', error);
+      }
+    };
+    fetchDietRecords();
+  }, [currentDate]);
+
+
 
   // 아침, 점심, 저녁 식사에 대한 음식 목록을 관리하는 상태
   const [meals, setMeals] = useState({
@@ -41,10 +62,19 @@ const Diet = () => {
   // Immutable.js 불변성 주의
   // 선택된 식사 시간에 음식을 추가하는 함수
   const addFoodToMeal = (foodItem) => {
-    setMeals((prevMeals) => ({ // 이전 meals의 상태 prevMeals를 인자로 받아옴
-      ...prevMeals,
-      [selectedMeal]: [...prevMeals[selectedMeal], foodItem], // 기존 상태를 복사하고 새로운 항목을 추가
-    }));
+    // 서버에 POST 요청 보내기
+    postDietRecords(currentDate, selectedMeal, foodItem)
+      .then(response => {
+        // 요청 성공 시, 화면에 아이템 렌더링
+        setMeals(prevMeals => ({
+          ...prevMeals,
+          [selectedMeal]: [...prevMeals[selectedMeal], foodItem],
+        }));
+      })
+      .catch(error => {
+        // 요청 실패 시, 에러 처리
+        console.error("POST 요청 실패:", error);
+      });
 
     closeModal();
   };
@@ -95,9 +125,7 @@ const Diet = () => {
 
   return (
     <div>
-      {/* 날짜 선택 입력 필드 */}
       <div id="datePicker">
-        {/* 날짜 선택 입력 필드 */}
         <input
           type="date"
           id="currentDate"
@@ -106,7 +134,6 @@ const Diet = () => {
         />
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
       </div>
-
       <div id="meals">
         {/* 아침 식사 섹션 */}
         <section id="breakfast">

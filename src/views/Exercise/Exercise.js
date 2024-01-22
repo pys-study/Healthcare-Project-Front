@@ -119,6 +119,7 @@ const Exercise = () => {
     const updatedExercises = exerciseList.map(exercise => ({ ...exercise, isNew: false }));
     setExerciseList(updatedExercises);
     console.log(exerciseList);
+    console.log(totals);
   }
 
   const calculateTotals = useCallback(() => {
