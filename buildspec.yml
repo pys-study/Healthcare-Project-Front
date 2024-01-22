@@ -5,6 +5,7 @@ env:
     AWS_DEFAULT_REGION: ap-northeast-2
     AWS_ACCOUNT_ID: 289850138235
     BACKEND_ENDPOINT : $BACKEND_ENDPOINT
+    BACKEND_ELB_ENDPOINT : $BACKEND_ELB_ENDPOINT
 phases:
   pre_build:
     commands:
@@ -12,6 +13,13 @@ phases:
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - echo "REACT_APP_BACKEND_ENDPOINT = '$BACKEND_ENDPOINT'" > ./.env
       - cat ./.env
+      - echo 'server {' >> ./nginx.conf
+      - echo '    listen 80;' >> ./nginx.conf
+      - echo '    server_name api3.healthcare-hwp.com;' >> ./nginx.conf
+      - echo '    location / {' >> ./nginx.conf
+      - echo "        proxy_pass $BACKEND_ELB_ENDPOINT;" >> ./nginx.conf
+      - echo '    }' >> ./nginx.conf
+      - echo '}' >> ./nginx.conf
   build:
     commands:
       - echo Build react app
