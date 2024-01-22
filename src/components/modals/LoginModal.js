@@ -111,24 +111,9 @@ const LoginModal = () => {
                     <MDBInput onChange={handleChangePassword} onKeyDown={handleKeyPress} wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='비밀번호' id='passwordInput' type='password' size="lg" />
 
 
-                    <p className="small mb-3 pb-lg-2"><a className="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
                     <MDBBtn onClick={handleClickLoginBtn} style={{ width: '150px', height: '55px' }} outline className='mx-2 px-5' color='white' size='lg'>
                       로그인
                     </MDBBtn>
-
-                    <div className='d-flex flex-row mt-3 mb-5'>
-                      <MDBBtn tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'white' }}>
-                        <MDBIcon fab icon='github' size="lg" />
-                      </MDBBtn>
-
-                      <MDBBtn onClick={() => { alert("카카오 로그인 성공") }} tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'yellow' }}>
-                        <MDBIcon className='fas fa-comment' size="lg" />
-                      </MDBBtn>
-
-                      <MDBBtn onClick={() => { alert("구글 로그인 성공") }} tag='a' color='none' className='m-3' style={{ width: '21px', height: '24px', color: 'white' }}>
-                        <MDBIcon fab icon='google' size="lg" />
-                      </MDBBtn>
-                    </div>
 
                     <div>
                       <p className="mb-0">계정이 없으신가요? <MDBBtn onClick={() => {
