@@ -20,6 +20,7 @@ phases:
       - echo "        proxy_pass $BACKEND_ELB_ENDPOINT;" >> ./nginx.conf
       - echo '    }' >> ./nginx.conf
       - echo '}' >> ./nginx.conf
+      - cat ./nginx.conf
   build:
     commands:
       - echo Build react app
