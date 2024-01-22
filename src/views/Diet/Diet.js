@@ -4,6 +4,7 @@ import DietModal from '../../components/modals/DietModal';
 import { useCurrentDate } from '../../contexts/CurrentDateContext';
 import postDietRecords from '../../Api/postDietRecords';
 import getDietRecords from '../../Api/getDietRecords';
+import DeleteDiet from '../../Api/DeleteDiet';
 
 const Diet = () => {
 
@@ -35,20 +36,32 @@ const Diet = () => {
     const fetchDietRecords = async () => {
       try {
         const records = await getDietRecords(currentDate);
-        if (records) {
-          // 각 식사 시간에 따라 meals 상태 업데이트
+        console.log(records);
+        if (records && records.length > 0) {
+          // records가 존재하고 비어 있지 않을 경우
           setMeals({
-            breakfast: records.filter(record => record.timeOfMeal === 'breakfast').map(record => record.dietInfo),
-            lunch: records.filter(record => record.timeOfMeal === 'lunch').map(record => record.dietInfo),
-            dinner: records.filter(record => record.timeOfMeal === 'dinner').map(record => record.dietInfo),
+            breakfast: records.filter(record => record.timeOfMeal === 'breakfast').map(record => ({ ...record.dietInfo, dietRecordId: record.dietRecordId })),
+            lunch: records.filter(record => record.timeOfMeal === 'lunch').map(record => ({ ...record.dietInfo, dietRecordId: record.dietRecordId })),
+            dinner: records.filter(record => record.timeOfMeal === 'dinner').map(record => ({ ...record.dietInfo, dietRecordId: record.dietRecordId })),
           });
+        } else {
+          // records가 없거나 비어 있는 경우, meals 상태를 초기화
+          setMeals({ breakfast: [], lunch: [], dinner: [] });
         }
       } catch (error) {
         console.error('식단 기록 불러오기 오류:', error);
+        setMeals({ breakfast: [], lunch: [], dinner: [] }); // 오류 발생시에도 meals 상태 초기화
       }
     };
     fetchDietRecords();
   }, [currentDate]);
+
+
+
+  const handleDateChange = (e) => {
+    const newDate = e.target.value;
+    setCurrentDate(newDate);
+  };
 
 
 
@@ -79,17 +92,20 @@ const Diet = () => {
     closeModal();
   };
 
-  // 선택된 식사 시간에서 특정 음식을 제거하는 함수
-  const removeFoodFromMeal = (mealType, dietInfoId) => {
-    // 해당 식사 시간의 배열에서 index에 해당하는 아이템을 제거
-    setMeals((prevMeals) => {
-      const filteredMeals = prevMeals[mealType].filter((_, i) => i !== dietInfoId);
-      return {
+  const removeFoodFromMeal = async (mealType, dietRecordId) => {
+    try {
+      // 서버에서 해당 식단 기록 삭제 요청 보내기
+      console.log(dietRecordId);
+      await DeleteDiet(dietRecordId);
+      // 요청 성공 시, 화면에서 해당 음식을 제거
+      setMeals(prevMeals => ({
         ...prevMeals,
-        [mealType]: filteredMeals
-      };
-    });
-
+        [mealType]: prevMeals[mealType].filter(foodItem => foodItem.dietRecordId !== dietRecordId),
+      }));
+    } catch (error) {
+      // 요청 실패 시, 에러 처리
+      console.error("식단 기록 삭제 실패:", error);
+    }
   };
 
   const renderMealList = (mealType) => {
@@ -106,15 +122,15 @@ const Diet = () => {
           </tr>
         </thead>
         <tbody>
-          {meals[mealType].map((foodItem, dietInfoId) => (
-            <tr key={foodItem.dietInfoId}>
+          {meals[mealType].map((foodItem) => (
+            <tr key={foodItem.dietRecordId}>
               <td>{foodItem.dietName}</td>
               <td>{foodItem.calories} kcal</td>
               <td>{foodItem.carbohydrate} g</td>
               <td>{foodItem.protein} g</td>
               <td>{foodItem.fats} g</td>
               <td>
-                <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, dietInfoId)}>x</button>
+                <button className='remove-btn' onClick={() => removeFoodFromMeal(mealType, foodItem.dietRecordId)}>x</button>
               </td>
             </tr>
           ))}
@@ -130,8 +146,7 @@ const Diet = () => {
           type="date"
           id="currentDate"
           value={currentDate} // 입력 필드의 값으로 상태 사용
-          onChange={(e) => setCurrentDate(e.target.value)} // 날짜 변경 핸들러
-        />
+          onChange={handleDateChange} />
         <span className='date-display'>{formatDateWithDay(currentDate)}</span>
       </div>
       <div id="meals">
