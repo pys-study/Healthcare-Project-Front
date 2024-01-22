@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import getExerciseRecords from '../../Api/getExerciseRecords';
-import { useCurrentDate } from '../../contexts/CurrentDateContext';
+
 
 const ExerciseLogTable = () => {
   const [exerciseRecords, setExerciseRecords] = useState([]);
-  const { currentDate } = useCurrentDate();
+  const [currentDate] = useState(new Date().toISOString().split('T')[0]);
+
 
   useEffect(() => {
     const fetchData = async () => {

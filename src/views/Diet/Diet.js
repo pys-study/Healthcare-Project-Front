@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Diet.css';
 import DietModal from '../../components/modals/DietModal';
-import { useCurrentDate } from '../../contexts/CurrentDateContext';
 import postDietRecords from '../../Api/postDietRecords';
 import getDietRecords from '../../Api/getDietRecords';
 import DeleteDiet from '../../Api/DeleteDiet';
@@ -14,8 +13,9 @@ const Diet = () => {
 
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-  const { currentDate, setCurrentDate } = useCurrentDate();
+  // const { currentDate, setCurrentDate } = useCurrentDate();
   // 현재 선택된 식사 시간을 저장하는 상태 ('breakfast', 'lunch', 'dinner')
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedMeal, setSelectedMeal] = useState('');
 
   const formatDateWithDay = (date) => {
@@ -55,7 +55,6 @@ const Diet = () => {
     };
     fetchDietRecords();
   }, [currentDate]);
-
 
 
   const handleDateChange = (e) => {

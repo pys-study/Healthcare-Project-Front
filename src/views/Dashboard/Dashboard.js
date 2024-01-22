@@ -1,16 +1,16 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import { Col, Row } from "reactstrap";
 import CaloriesChart from "../../components/dashboards/CalorieChart";
 import CalorieCards from "../../components/dashboards/CalorieCards";
 import ExerciseLogTable from "../../components/dashboards/ExerciseLogTable";
 import ExerciseWeightChart from "../../components/dashboards/ExerciseWeightChart";
 import DailyCalorieChart from "../../components/dashboards/DailyCalorieChart";
-import { useCurrentDate } from '../../contexts/CurrentDateContext';
 const Dashboard = () => {
 
   const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-  const { currentDate } = useCurrentDate();
+  //const { currentDate } = useCurrentDate();
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]);
 
   const formatDateWithDay = (date) => {
     const dayOfWeek = weekdays[new Date(date).getDay()];

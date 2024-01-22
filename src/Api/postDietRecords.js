@@ -17,7 +17,6 @@ const postDietRecords = (currentDate, selectedMeal, foodItem) => {
   return apiClient.post('/dietRecords/add', requestBody, config)
     .then(response => {
       console.log(response);
-      alert("post 성공");
       return response; // Promise 체인에서 다음 처리를 위해 response 반환
     })
     .catch(error => {
